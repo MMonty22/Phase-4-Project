@@ -1,10 +1,10 @@
 require 'faker'
 
-puts 'Seeding Data'
+puts 'Seeding Data' 
 
 users = {username: Faker::Internet.unique.username, email: Faker::Internet.unique.safe_email, password: Faker::Internet.unique.password, user_review_count: Faker::Number.between(from: 1, to: 10)}
 
-20.times do
+20.times do 
     User.create(users)
 end
 
@@ -53,4 +53,4 @@ Comedian.create([
     }
 ])
 
-puts 'Done Seeding Awesome Data!'
+puts 'Done Seeding'
