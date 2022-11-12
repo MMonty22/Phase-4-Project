@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Comedians({comedians}) {
+function Comedian({comedians}) {
 
     return (
         <div>
@@ -9,4 +9,4 @@ function Comedians({comedians}) {
     )
 }
 
-export default Comedians
+export default Comedian
