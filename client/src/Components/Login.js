@@ -15,7 +15,7 @@ function Login({username, setUsername, password, setPassword, passwordConfirmati
             password_confirmation: passwordConfirmation,
           }),
         })
-          .then((r) => r.json())
+          .then((res) => res.json())
           .then(login);
       }
 

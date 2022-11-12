@@ -17,8 +17,9 @@ function SignUp({username, setUsername, email, setEmail, password, setPassword, 
           password_confirmation: passwordConfirmation,
         }),
       })
-        .then((r) => r.json())
+        .then((res) => res.json())
         .then(login);
+        navigate('/comedians')
     }
 
     function navigateToLoginPage() {
