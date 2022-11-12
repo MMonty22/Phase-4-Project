@@ -11,6 +11,10 @@ function Comedian({singleComedian}) {
         navigate(`/review/${userID}/${comedianID}`)
     }
 
+    function navigateToComedianReviews() {
+        navigate(`/reviews/${comedianID}`)
+    }
+
     return (
         <div className='comedian'>
             <h3>{singleComedian.name}</h3>
@@ -18,6 +22,7 @@ function Comedian({singleComedian}) {
             <p>{singleComedian.review_count}</p>
             <p>{singleComedian.bio}</p>
             <button onClick={navigateToReviewForm}>Leave a Review</button>
+            <button onClick={navigateToComedianReviews}>See Reviews</button>
         </div>
     )
 }
