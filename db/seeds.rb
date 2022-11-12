@@ -4,19 +4,19 @@ puts 'Seeding Data'
 
 users = {username: Faker::Internet.unique.username, email: Faker::Internet.unique.safe_email, password: Faker::Internet.unique.password, user_review_count: Faker::Number.between(from: 1, to: 10)}
 
-10.times do
+20.times do
     User.create(users)
 end
 
 reviews = {user_id: Faker::Number.unique.between(from: 1, to: 10), comedian_id: Faker::Number.unique.between(from: 1, to: 10), review_text: Faker::Lorem.paragraph, rating: Faker::Number.between(from: 1, to: 10)}
 
-10.times do
+20.times do
     Review.create(reviews)
 end
 
-comedians = {name: Faker::Name.unique.name, bio: Faker::Lorem.unique.paragraphs(number: 3), average_rating: Faker::Number.between(from: 0.0, to: 10.0), review_count: Faker::Number.between(from: 1, to: 10)}
+comedians = {name: Faker::Name.unique.name, bio: Faker::Lorem.unique.paragraphs(number: 3), average_rating: Faker::Number.between(from: 0.0, to: 10.0), review_count: Faker::Number.unique.between(from: 1, to: 10)}
 
-5.times do
+15.times do
     Comedian.create(comedians)
 end
 
