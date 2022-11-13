@@ -3,6 +3,7 @@ import {Routes, Route} from 'react-router-dom'
 import SignUp from './SignUp';
 import Login from './Login';
 import ComediansContainer from './ComediansContainer'
+import ReviewForm from './ReviewForm';
 
 function App() {
   const {login, setlogin} = useState("")
@@ -24,7 +25,8 @@ function App() {
         {/* <Route exact path="/" element={}/> */}
         <Route exact path="/signup" element={<SignUp username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} login={login}/>}/>
         <Route exact path="/login/" element={<Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} login={login}/>} />
-        <Route exact path="/comedians" element={<ComediansContainer comedians={comedians}/>}/>
+        <Route path="/comedians" element={<ComediansContainer comedians={comedians}/>}/>
+        <Route path="/reviews/new" element={<ReviewForm comedians={comedians}/>}/>
       </Routes>
     </div>
   );
