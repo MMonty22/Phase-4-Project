@@ -41,8 +41,10 @@ function ReviewForm({comedians}) {
         <div className="reviewForm">
             <h1>Please Leave a Review</h1>
             <form onSubmit={handleSubmit}>
+                <label>Comedian</label>
+                <input id="comedian" type="text"></input>
                 <label>Your Review</label>
-                <textarea id="review" type="text" name="review" placeholder="Review goes here" value={formData.review} onChange={handleChange}></textarea>
+                <textarea id="review" type="text" placeholder="Review goes here" value={formData.review} onChange={handleChange}></textarea>
                 <label>Rating out of 10</label>
                 <input id="rating" type="number" name="rating" placeholder="9" min={1} max={10} value={formData.rating} onChange={handleChange}></input>
                 <button id="submitReviewButton" type="submit">Submit</button>
