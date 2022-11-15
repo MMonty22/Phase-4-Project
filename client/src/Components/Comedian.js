@@ -7,11 +7,11 @@ function Comedian({singleComedian}) {
     const userID = searchParams.get("user_id")
 
     function navigateToReviewForm(comedianID) {
-        navigate(`/reviews/${comedianID}/${userID}`)
+        navigate(`/reviews/?id=${comedianID}/?id=${userID}`)
     }
 
     function navigateToComedianReviews(comedianID) {
-        navigate(`/reviews/${comedianID}`)
+        navigate(`/reviews/?id=${comedianID}`)
     }
 
     return (
