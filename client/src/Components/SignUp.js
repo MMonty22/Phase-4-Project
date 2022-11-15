@@ -4,8 +4,8 @@ import {useNavigate} from "react-router-dom"
 function SignUp({username, setUsername, email, setEmail, password, setPassword, passwordConfirmation, setPasswordConfirmation, login}) {
     const navigate = useNavigate()
   
-    function handleSubmit(e) {
-      e.preventDefault();
+    function handleSubmit(event) {
+      event.preventDefault();
       fetch("/signup", {
         method: "POST",
         headers: {
@@ -31,7 +31,7 @@ function SignUp({username, setUsername, email, setEmail, password, setPassword, 
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">Username:</label>
           <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-          <label htmlFor='email'>Email:</label>
+          <label htmlFor="email">Email:</label>
           <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
           <label htmlFor="password">Password:</label>
           <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
@@ -40,7 +40,7 @@ function SignUp({username, setUsername, email, setEmail, password, setPassword, 
           <button type="submit">Submit</button>
         </form>
         <h3>Already have an account?</h3>
-        <button onClick={navigateToLoginPage}>Login</button>
+        <button onClick={navigateToLoginPage}>Login Here</button>
       </div>
     );
 }

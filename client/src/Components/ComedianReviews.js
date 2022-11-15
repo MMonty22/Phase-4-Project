@@ -1,6 +1,6 @@
 import React from "react";
 
-function ComedianReviews() {
+function ComedianReviews({comedians}) {
     return (
         <div>
 

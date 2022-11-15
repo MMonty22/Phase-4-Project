@@ -2,11 +2,7 @@ class ComediansController < ApplicationController
 
     def index
         comedians = Comedian.all
-        render json: comedians, include: :reviews, status: :created
-    end
-
-    def show
-        
+        render json: comedians.to_json(include: :reviews), status: :created
     end
 
 end

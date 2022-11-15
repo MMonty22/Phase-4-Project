@@ -17,8 +17,8 @@ function Comedian({singleComedian}) {
     return (
         <div className='comedian'>
             <h3>{singleComedian.name}</h3>
-            <p>{singleComedian.average_rating}</p>
-            <p>{singleComedian.review_count}</p>
+            <p>Average Rating: {singleComedian.average_rating}</p>
+            <p>Reviews: {singleComedian.review_count}</p>
             <p>{singleComedian.bio}</p>
             <button onClick={() => navigateToReviewForm(singleComedian.id)}>Leave a Review</button>
             <button onClick={() => navigateToComedianReviews(singleComedian.id)}>See Reviews</button>

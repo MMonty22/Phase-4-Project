@@ -27,7 +27,7 @@ function ReviewForm({comedians}) {
     }
 
     function addReview() {
-        const [relevantComedian] = comedians.filter((comedian) => String(comedian.id) === String(userID))
+        
     }
 
     function handleChange(event) {
