@@ -5,6 +5,7 @@ function Comedian({singleComedian}) {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
     const userID = searchParams.get("user_id")
+    //console.log('userID', userID)
 
     function navigateToReviewForm(comedianID) {
         navigate(`/reviews/?id=${comedianID}/?user_id=${userID}`)
