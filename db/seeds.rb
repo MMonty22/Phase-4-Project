@@ -5,31 +5,26 @@ puts 'Seeding Data'
 User.create([
     {
         username: "iluvcomedy",
-        email: "comedyisawesome@gmail.com",
         password: "comedyrocks1",
         user_review_count: 12
     },
     {
         username: "shmeggs44",
-        email: "shmeggs44@att.net",
         password: "iheartlaughing1",
         user_review_count: 4
     },
     {
         username: "number1bearsfan",
-        email: "gobears1@aol.com",
         password: "justinfields1",
         user_review_count: 23
     },
     {
         username: "ihatecomedy",
-        email: "comedyisdumb@gmail.com",
         password: "comedysucks1",
         user_review_count: 1
     },
     {
         username: "chitown4ever",
-        email: "deepdishpizzalover@gmail.com",
         password: "mjisthegoat23",
         user_review_count: 52
     }

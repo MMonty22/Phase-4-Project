@@ -43,9 +43,6 @@ function SignUp({username, setUsername, email, setEmail, password, setPassword, 
           <label>Username:</label>
           <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
           <br/>
-          <label>Email:</label>
-          <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-          <br/>
           <label>Password:</label>
           <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
           <br/>
