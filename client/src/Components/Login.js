@@ -1,32 +1,45 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import {useNavigate} from "react-router-dom"
+import { userContext } from '../Context/UserContext';
 
-function Login({username, setUsername, password, setPassword, passwordConfirmation, setPasswordConfirmation, login}) {
+function Login({username, setUsername, email, setEmail, password, setPassword, passwordConfirmation, setPasswordConfirmation, errors, setErrors}) {
+    const navigate = useNavigate()
+    const signUp = useContext(userContext)
 
-    function handleSubmit(e) {
-        e.preventDefault();
+    function handleSubmit(event) {
+        event.preventDefault();
         fetch("/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            username,
-            password,
+            username: username,
+            password: password,
             password_confirmation: passwordConfirmation,
           }),
         })
           .then((res) => res.json())
-          .then(login);
+          .then(user => {
+            if (!user.errors) {
+              signUp(user)
+            }
+            else {
+              setUsername("")
+              setPassword("")
+              setPasswordConfirmation("")
+            }
+          });
       }
 
     return (
         <div>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="username">Username:</label>
+          <label>Username:</label>
           <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-          <label htmlFor="password">Password:</label>
+          <label>Password:</label>
           <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-          <label htmlFor="password_confirmation">Confirm Password:</label>
+          <label>Confirm Password:</label>
           <input type="password" id="password_confirmation" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)}/>
           <button type="submit">Submit</button>
         </form>
