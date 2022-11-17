@@ -7,11 +7,11 @@ import ReviewForm from './ReviewForm';
 import ComedianReviews from './ComedianReviews';
 
 function App() {
-  const {login, setlogin} = useState(false)
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [passwordConfirmation, setPasswordConfirmation] = useState("")
+  const [errors, setErrors] = useState([])
   const [comedians, setComedians] = useState([])
 
   useEffect(() => {
@@ -23,8 +23,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" element={<SignUp username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} login={login} setlogin={setlogin}/>}/>
-        <Route exact path="/login" element={<Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} login={login} setlogin={setlogin}/>} />
+        <Route exact path="/" element={<SignUp username={username} setUsername={setUsername} email={email} setEmail={setEmail} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} errors={errors} setErrors={setErrors}/>}/>
+        <Route exact path="/login" element={<Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} errors={errors} setErrors={setErrors}/>} />
         <Route path="/comedians" element={<ComediansContainer comedians={comedians}/>}/>
         <Route path="/reviews/new" element={<ReviewForm comedians={comedians}/>}/>
         <Route path="/reviews" element={<ComedianReviews comedians={comedians}/>}/>

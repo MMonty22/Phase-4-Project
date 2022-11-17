@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {useNavigate} from "react-router-dom"
+import { userContext } from '../Context/UserContext';
 
-function SignUp({username, setUsername, email, setEmail, password, setPassword, passwordConfirmation, setPasswordConfirmation, login}) {
+function SignUp({username, setUsername, email, setEmail, password, setPassword, passwordConfirmation, setPasswordConfirmation, errors, setErrors}) {
     const navigate = useNavigate()
-  
+    const signUp = useContext(userContext)
+
     function handleSubmit(event) {
       event.preventDefault();
       fetch("/signup", {
@@ -12,13 +14,22 @@ function SignUp({username, setUsername, email, setEmail, password, setPassword, 
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username,
-          password,
+          username: username,
+          password: password,
           password_confirmation: passwordConfirmation,
         }),
       })
         .then((res) => res.json())
-        .then(login);
+        .then(user => {
+          if (!user.errors) {
+            signUp(user)
+          }
+          else {
+            setUsername("")
+            setPassword("")
+            setPasswordConfirmation("")
+          }
+        });
         navigate('/comedians')
     }
 
@@ -29,14 +40,18 @@ function SignUp({username, setUsername, email, setEmail, password, setPassword, 
     return (
       <div>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="username">Username:</label>
+          <label>Username:</label>
           <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-          <label htmlFor="email">Email:</label>
+          <br/>
+          <label>Email:</label>
           <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-          <label htmlFor="password">Password:</label>
+          <br/>
+          <label>Password:</label>
           <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-          <label htmlFor="password_confirmation">Confirm Password:</label>
+          <br/>
+          <label>Confirm Password:</label>
           <input type="password" id="password_confirmation" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)}/>
+          <br/>
           <button type="submit">Submit</button>
         </form>
         <h3>Already have an account?</h3>
