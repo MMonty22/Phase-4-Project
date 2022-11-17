@@ -2,13 +2,13 @@ import React, {useContext} from 'react'
 import {useNavigate} from "react-router-dom"
 import { userContext } from '../Context/UserContext';
 
-function Login({username, setUsername, email, setEmail, password, setPassword, passwordConfirmation, setPasswordConfirmation, errors, setErrors}) {
+function Login({username, setUsername, email, setEmail, password, setPassword, errors, setErrors}) {
     const navigate = useNavigate()
-    const signUp = useContext(userContext)
+    const signup = useContext(userContext)
 
     function handleSubmit(event) {
         event.preventDefault();
-        fetch("/signup", {
+        fetch("/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -16,18 +16,16 @@ function Login({username, setUsername, email, setEmail, password, setPassword, p
           body: JSON.stringify({
             username: username,
             password: password,
-            password_confirmation: passwordConfirmation,
           }),
         })
           .then((res) => res.json())
           .then(user => {
             if (!user.errors) {
-              signUp(user)
+              signup(user)
             }
             else {
               setUsername("")
               setPassword("")
-              setPasswordConfirmation("")
             }
           });
       }
@@ -39,8 +37,6 @@ function Login({username, setUsername, email, setEmail, password, setPassword, p
           <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
           <label>Password:</label>
           <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-          <label>Confirm Password:</label>
-          <input type="password" id="password_confirmation" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)}/>
           <button type="submit">Submit</button>
         </form>
         </div>

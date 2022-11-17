@@ -4,7 +4,7 @@ import { userContext } from '../Context/UserContext';
 
 function SignUp({username, setUsername, email, setEmail, password, setPassword, passwordConfirmation, setPasswordConfirmation, errors, setErrors}) {
     const navigate = useNavigate()
-    const signUp = useContext(userContext)
+    const signup = useContext(userContext)
 
     function handleSubmit(event) {
       event.preventDefault();
@@ -22,7 +22,7 @@ function SignUp({username, setUsername, email, setEmail, password, setPassword, 
         .then((res) => res.json())
         .then(user => {
           if (!user.errors) {
-            signUp(user)
+            signup(user)
           }
           else {
             setUsername("")
