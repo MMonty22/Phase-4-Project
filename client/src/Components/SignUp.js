@@ -1,10 +1,10 @@
 import React, {useContext} from 'react'
 import {useNavigate} from "react-router-dom"
-import { userContext } from '../Context/UserContext';
+import { UserContext } from '../Context/UserContext';
 
-function SignUp({username, setUsername, email, setEmail, password, setPassword, passwordConfirmation, setPasswordConfirmation, errors, setErrors}) {
+function SignUp({username, setUsername, password, setPassword, passwordConfirmation, setPasswordConfirmation, errors, setErrors}) {
     const navigate = useNavigate()
-    const signup = useContext(userContext)
+    const signup = useContext(UserContext);
 
     function handleSubmit(event) {
       event.preventDefault();
@@ -30,15 +30,12 @@ function SignUp({username, setUsername, email, setEmail, password, setPassword, 
             setPasswordConfirmation("")
           }
         });
-        navigate('/comedians')
-    }
-
-    function navigateToLoginPage() {
-      navigate('/login')
+        navigate('/')
     }
   
     return (
       <div>
+        <h2>Create An Account</h2>
         <form onSubmit={handleSubmit}>
           <label>Username:</label>
           <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
@@ -51,8 +48,6 @@ function SignUp({username, setUsername, email, setEmail, password, setPassword, 
           <br/>
           <button type="submit">Submit</button>
         </form>
-        <h3>Already have an account?</h3>
-        <button onClick={navigateToLoginPage}>Login Here</button>
       </div>
     );
 }

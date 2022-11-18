@@ -1,10 +1,10 @@
 import React, {useContext} from 'react'
 import {useNavigate} from "react-router-dom"
-import { userContext } from '../Context/UserContext';
+import { UserContext } from '../Context/UserContext';
 
-function Login({username, setUsername, email, setEmail, password, setPassword, errors, setErrors}) {
+function Login({username, setUsername, password, setPassword, errors, setErrors}) {
     const navigate = useNavigate()
-    const signup = useContext(userContext)
+    const login = useContext(UserContext)
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -21,22 +21,26 @@ function Login({username, setUsername, email, setEmail, password, setPassword, e
           .then((res) => res.json())
           .then(user => {
             if (!user.errors) {
-              signup(user)
+              login(user)
             }
             else {
               setUsername("")
               setPassword("")
             }
           });
+          navigate('/')
       }
 
     return (
         <div>
+        <h2>Please Login</h2>
         <form onSubmit={handleSubmit}>
           <label>Username:</label>
           <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
+          <br/>
           <label>Password:</label>
           <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+          <br/>
           <button type="submit">Submit</button>
         </form>
         </div>

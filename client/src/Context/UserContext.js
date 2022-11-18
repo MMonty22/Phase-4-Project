@@ -1,6 +1,6 @@
-import React, {useState, useEffect, createContext} from "react";
+import React, {useState, useEffect} from "react";
 
-const userContext = createContext()
+const UserContext = React.createContext()
 
 function UserProvider({children}) {
     const [user, setUser] = useState({})
@@ -13,7 +13,7 @@ function UserProvider({children}) {
             setUser(data)
             data.error ? setLoggedIn(false) : setLoggedIn(true)
         })
-    })
+    }, [])
 
     function login(user) {
         setUser(user)
@@ -31,10 +31,10 @@ function UserProvider({children}) {
     }
 
     return (
-        <userContext.Provider value={{user, login, logout, signup, loggedIn}}>
+        <UserContext.Provider value={{user, login, logout, signup, loggedIn}}>
             {children}
-        </userContext.Provider>
+        </UserContext.Provider>
     )
 }
 
-export {userContext, UserProvider}
+export {UserContext, UserProvider}
