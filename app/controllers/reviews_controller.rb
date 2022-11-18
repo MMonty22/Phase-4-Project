@@ -1,7 +1,14 @@
 class ReviewsController < ApplicationController
 
-    def index
-        render json: Review.all, status: :created
+    def create
+        review = @current_user.reviews.create!(review_params)
+        render json: review, status: :created
+    end
+
+    private
+
+    def review_params
+        params.permit(:review_text, :rating)
     end
 
 end

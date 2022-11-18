@@ -4,7 +4,7 @@ import { UserContext } from '../Context/UserContext';
 
 function SignUp({username, setUsername, password, setPassword, passwordConfirmation, setPasswordConfirmation, errors, setErrors}) {
     const navigate = useNavigate()
-    const signup = useContext(UserContext);
+    const {signup} = useContext(UserContext);
 
     function handleSubmit(event) {
       event.preventDefault();
