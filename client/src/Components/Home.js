@@ -4,8 +4,8 @@ import { UserContext } from '../Context/UserContext';
 
 function Home() {
     const navigate = useNavigate()
-    const {user, loggedIn} = useContext(UserContext)
-    console.log('user', user)
+    const {user, loggedIn, logout} = useContext(UserContext)
+    //console.log('user', user)
 
     function navigateToLoginPage() {
         navigate('/login')
@@ -15,10 +15,22 @@ function Home() {
         navigate('/signup')
     }
 
+    function handleUserLogout() {
+        fetch('/logout', {
+            method: 'DELETE',
+            headers: {"Content-Type": "application/json",},
+        })
+        .then(() => {
+            logout()
+            navigate('/')
+        })
+    }
+
     if (loggedIn)
         return(
             <div>
                 <h2>Welcome, {user.username}</h2>
+                <button onClick={handleUserLogout}>Logout</button>
             </div>
         )
     else
