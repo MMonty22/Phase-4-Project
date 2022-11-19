@@ -3,7 +3,7 @@ import {useSearchParams} from "react-router-dom"
 
 function ReviewForm({comedians}) {
     const [searchParams] = useSearchParams()
-    const userID = searchParams.get("id")
+    const userID = searchParams.get("user_id")
     const [formData, setFormData] = useState({
         review: "",
         rating: 1

@@ -8,8 +8,8 @@ function NavBar() {
             <NavLink to="/">
                 Home
             </NavLink>
-            <NavLink to="/login">
-                Login
+            <NavLink to="/comedians">
+                Comedians
             </NavLink>
         </nav>
     )

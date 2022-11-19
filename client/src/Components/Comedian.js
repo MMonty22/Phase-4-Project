@@ -1,18 +1,17 @@
 import React from 'react'
-import {useNavigate, useSearchParams} from "react-router-dom"
+import {useNavigate, useParams} from "react-router-dom"
 
 function Comedian({singleComedian}) {
     const navigate = useNavigate()
-    const [searchParams] = useSearchParams()
-    const userID = searchParams.get("user_id")
+    const {user_id} = useParams()
     //console.log('userID', userID)
 
     function navigateToReviewForm(comedianID) {
-        navigate(`/reviews/?id=${comedianID}/?user_id=${userID}`)
+        navigate(`/reviews/id=${comedianID}/user_id=${user_id}`)
     }
 
     function navigateToComedianReviews(comedianID) {
-        navigate(`/reviews/?id=${comedianID}`)
+        navigate(`/comedians/${comedianID}/reviews`)
     }
 
     return (
