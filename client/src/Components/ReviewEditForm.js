@@ -1,8 +1,10 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
+import { UserContext } from '../Context/UserContext';
 import {useParams} from "react-router-dom"
 
-function ReviewEditForm({reviews}) {
+function ReviewEditForm({reviews, setReviews}) {
     const {id} = useParams()
+    const {user} = useContext(UserContext)
     //console.log('id', id)
     //console.log('reviews', reviews)
     const relevantReview = reviews.find((review) => String(review.id) === String(id))
@@ -26,11 +28,12 @@ function ReviewEditForm({reviews}) {
             body: JSON.stringify(editedReviewObj)
         })
         .then(res => res.json())
-        .then(data => editReview(data))
+        .then(data => updateReview(data))
     }
 
-    function editReview() {
-        
+    function updateReview(editedReview) {
+        const nonEditedReviews = user.reviews.filter((review) => String(review.id) !== String(editedReview.id))
+        setReviews([...nonEditedReviews, editedReview])
     }
 
     function handleChange(event) {

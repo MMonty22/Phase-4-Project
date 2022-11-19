@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react'
 import {useNavigate} from "react-router-dom"
 import { UserContext } from '../Context/UserContext';
 
-function Home({reviews}) {
+function Home() {
     const navigate = useNavigate()
     const {user, loggedIn, logout} = useContext(UserContext)
     const [myReviews, setMyReviews] = useState(false)
