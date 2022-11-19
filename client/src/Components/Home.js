@@ -52,10 +52,6 @@ function Home() {
         setMyComedians(!myComedians)
     }
 
-    function navigateToReviewForm(comedianID) {
-        navigate(`/reviews/${comedianID}/${user.id}`)
-    }
-
     if (loggedIn && myReviews)
         return (
             <div>
@@ -65,8 +61,6 @@ function Home() {
                 <button onClick={handleMyReviews}>{myReviews ? "Hide My Reviews" : "Show My Reviews"}</button>
                 <br/>
                 <button onClick={handleMyComedians}>{myComedians ? "Hide Comedians I Reviewed" : "Show Comedians I Reviewed"}</button>
-                <br/>
-                <button onClick={() => navigateToReviewForm()}>Create New Review</button>
                 {userReviews}
             </div>
     )
@@ -79,8 +73,6 @@ function Home() {
                 <button onClick={handleMyReviews}>Show My Reviews</button>
                 <br/>
                 <button onClick={handleMyComedians}>{myComedians ? "Hide Comedians I Reviewed" : "Show Comedians I Reviewed"}</button>
-                <br/>
-                <button onClick={navigateToReviewForm}>Create New Review</button>
                 {userComedians}
             </div>
         )
@@ -93,8 +85,6 @@ function Home() {
                 <button onClick={handleMyReviews}>Show My Reviews</button>
                 <br/>
                 <button onClick={handleMyComedians}>{myComedians ? "Hide Comedians I Reviewed" : "Show Comedians I Reviewed"}</button>
-                <br/>
-                <button onClick={navigateToReviewForm}>Create New Review</button>
             </div>
         )
     else

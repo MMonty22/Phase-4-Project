@@ -1,21 +1,27 @@
-import React, {useState} from "react";
-import {useSearchParams} from "react-router-dom"
+import React, {useState, useContext} from "react";
+import { UserContext } from '../Context/UserContext';
+import {useParams, useNavigate} from "react-router-dom"
 
-function ReviewForm({comedians}) {
-    const [searchParams] = useSearchParams()
-    const userID = searchParams.get("user_id")
+function ReviewForm({reviews, setReviews, comedians}) {
+    const navigate = useNavigate()
+    const {id} = useParams()
+    const {user} = useContext(UserContext)
+    //maybe can do some validation on backend to make sure they only input a comedian that already exists in the DB
+    
     const [formData, setFormData] = useState({
-        review: "",
+        //comedian: "",
+        review_text: "",
         rating: 1
     })
 
     function handleSubmit(event) {
         event.preventDefault()
         const newReviewObj = {
-            review: formData.review,
+            //comedian: formData.comedian,
+            review_text: formData.review_text,
             rating: formData.rating,
         }
-        fetch(`/comedians/reviews/${userID}/`, {
+        fetch(`/reviews`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -23,11 +29,12 @@ function ReviewForm({comedians}) {
             body: JSON.stringify(newReviewObj)
         })
         .then(res => res.json())
-        .then(data => addReview(data, userID))
+        .then(data => addReview(data))
+        navigate('/')
     }
 
-    function addReview() {
-        
+    function addReview(newReview) {
+        setReviews([...reviews, newReview])
     }
 
     function handleChange(event) {
@@ -41,12 +48,18 @@ function ReviewForm({comedians}) {
         <div className="reviewForm">
             <h1>Please Leave a Review</h1>
             <form onSubmit={handleSubmit}>
-                <label>Comedian</label>
-                <input id="comedian" type="text"></input>
+                {/* <label>Comedian</label>
+                <br />
+                <input id="comedian" type="text" placeholder="Ex: Kevin Hart" value={formData.comedian} onChange={handleChange}></input>
+                <br /> */}
                 <label>Your Review</label>
-                <textarea id="review" type="text" placeholder="Review goes here" value={formData.review} onChange={handleChange}></textarea>
+                <br />
+                <textarea id="review_text" type="text" placeholder="Ex: Jerry Seinfeld is unbelievably hilarious..." value={formData.review_text} onChange={handleChange}></textarea>
+                <br />
                 <label>Rating out of 10</label>
+                <br />
                 <input id="rating" type="number" name="rating" placeholder="9" min={1} max={10} value={formData.rating} onChange={handleChange}></input>
+                <br />
                 <button id="submitReviewButton" type="submit">Submit</button>
             </form>
         </div>

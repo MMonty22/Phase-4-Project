@@ -40,7 +40,7 @@ function App() {
           <Route exact path="/signup" element={<SignUp username={username} setUsername={setUsername} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} errors={errors} setErrors={setErrors}/>}/>
           <Route exact path="/login" element={<Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} errors={errors} setErrors={setErrors}/>} />
           <Route exact path="/comedians" element={<ComediansContainer comedians={comedians} />}/>
-          <Route exact path="/reviews/new" element={<ReviewForm comedians={comedians} users={users}/>}/>
+          <Route exact path="/reviews/new" element={<ReviewForm comedians={comedians} reviews={reviews} setReviews={setReviews}/>}/>
           <Route path="reviews/:id/edit" element={<ReviewEditForm reviews={reviews} setReviews={setReviews}/>}/>
           <Route path="/comedians/:id/reviews" element={<ComedianReviews comedians={comedians} users={users}/>}/>
         </Routes>
