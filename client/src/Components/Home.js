@@ -18,7 +18,12 @@ function Home({reviews}) {
     const userReviews = user?.reviews?.map((review) => <ul key={review.id}>
         <li>Review: {review.review_text}</li>
         <li>Rating: {review.rating}</li>
+        <button onClick={() => navigateToReviewEditForm(review.id)}>Edit Review</button>
     </ul>)
+
+    function navigateToReviewEditForm(reviewID) {
+        navigate(`/reviews/${reviewID}/edit`)
+    }
 
     function navigateToLoginPage() {
         navigate('/login')
@@ -47,6 +52,10 @@ function Home({reviews}) {
         setMyComedians(!myComedians)
     }
 
+    function navigateToReviewForm(comedianID) {
+        navigate(`/reviews/${comedianID}/${user.id}`)
+    }
+
     if (loggedIn && myReviews)
         return (
             <div>
@@ -56,6 +65,8 @@ function Home({reviews}) {
                 <button onClick={handleMyReviews}>{myReviews ? "Hide My Reviews" : "Show My Reviews"}</button>
                 <br/>
                 <button onClick={handleMyComedians}>{myComedians ? "Hide Comedians I Reviewed" : "Show Comedians I Reviewed"}</button>
+                <br/>
+                <button onClick={() => navigateToReviewForm()}>Create New Review</button>
                 {userReviews}
             </div>
     )
@@ -68,6 +79,8 @@ function Home({reviews}) {
                 <button onClick={handleMyReviews}>Show My Reviews</button>
                 <br/>
                 <button onClick={handleMyComedians}>{myComedians ? "Hide Comedians I Reviewed" : "Show Comedians I Reviewed"}</button>
+                <br/>
+                <button onClick={navigateToReviewForm}>Create New Review</button>
                 {userComedians}
             </div>
         )
@@ -80,6 +93,8 @@ function Home({reviews}) {
                 <button onClick={handleMyReviews}>Show My Reviews</button>
                 <br/>
                 <button onClick={handleMyComedians}>{myComedians ? "Hide Comedians I Reviewed" : "Show Comedians I Reviewed"}</button>
+                <br/>
+                <button onClick={navigateToReviewForm}>Create New Review</button>
             </div>
         )
     else

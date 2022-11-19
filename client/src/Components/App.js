@@ -8,6 +8,7 @@ import ReviewForm from './ReviewForm';
 import ComedianReviews from './ComedianReviews';
 import Home from './Home';
 import NavBar from './NavBar';
+import ReviewEditForm from './ReviewEditForm';
 
 function App() {
   const [username, setUsername] = useState("")
@@ -40,6 +41,7 @@ function App() {
           <Route exact path="/login" element={<Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} errors={errors} setErrors={setErrors}/>} />
           <Route exact path="/comedians" element={<ComediansContainer comedians={comedians} />}/>
           <Route exact path="/reviews/new" element={<ReviewForm comedians={comedians} users={users}/>}/>
+          <Route path="reviews/:id/edit" element={<ReviewEditForm reviews={reviews}/>}/>
           <Route path="/comedians/:id/reviews" element={<ComedianReviews comedians={comedians} users={users}/>}/>
         </Routes>
       </UserProvider>
