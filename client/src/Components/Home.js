@@ -16,6 +16,7 @@ function Home(reviews, setReviews) {
     </ul>)
 
     const userReviews = user?.reviews?.map((review) => <ul key={review.id}>
+        <li>Comedian: {user?.comedians?.map((comedian) => comedian.name)}</li>
         <li>Review: {review.review_text}</li>
         <li>Rating: {review.rating}</li>
         <button onClick={() => navigateToReviewEditForm(review.id)}>Edit Review</button>

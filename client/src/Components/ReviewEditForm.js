@@ -11,6 +11,7 @@ function ReviewEditForm({reviews, setReviews}) {
     const relevantReview = reviews.find((review) => String(review.id) === String(id))
     //console.log('relevantReview', relevantReview)
     const [editFormData, setEditFormData] = useState({
+        comedian: relevantReview.comedian.name,
         review_text: relevantReview.review_text,
         rating: relevantReview.rating
     })
@@ -18,6 +19,7 @@ function ReviewEditForm({reviews, setReviews}) {
     function handleSubmit(event) {
         event.preventDefault()
         const editedReviewObj = {
+            comedian: editFormData.comedian,
             review_text: editFormData.review,
             rating: editFormData.rating,
         }
@@ -50,6 +52,10 @@ function ReviewEditForm({reviews, setReviews}) {
         <div className="reviewForm">
             <h1>Please Leave a Review</h1>
             <form onSubmit={handleSubmit}>
+                <label>Comedian</label>
+                <br/>
+                <input id="comedian" type="text" value={editFormData.comedian} readOnly></input>
+                <br/>
                 <label>Your Review</label>
                 <br/>
                 <textarea id="review" type="text" value={editFormData.review_text} onChange={handleChange}></textarea>

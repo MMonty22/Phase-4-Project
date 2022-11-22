@@ -54,23 +54,28 @@ function Comedian({comedians, setReviews, reviews}) {
 
     if (showReviewForm)
         return (
-            <div className="reviewForm">
-            <h1>Please Leave a Review</h1>
-            <form onSubmit={handleSubmit}>
-                <label>Comedian</label>
-                <br />
-                <input id="comedian" type="text" value={formData.comedian} onChange={handleChange}></input>
-                <br />
-                <label>Your Review</label>
-                <br />
-                <textarea id="review_text" type="text" placeholder="Ex: Jerry Seinfeld is unbelievably hilarious..." value={formData.review_text} onChange={handleChange}></textarea>
-                <br />
-                <label>Rating out of 10</label>
-                <br />
-                <input id="rating" type="number" name="rating" placeholder="9" min={1} max={10} value={formData.rating} onChange={handleChange}></input>
-                <br />
-                <button id="submitReviewButton" type="submit">Submit</button>
-            </form>
+            <div>
+                <h3>{relevantComedian.name}</h3>
+                <p>{relevantComedian.bio}</p>
+                <p>Average Rating: {relevantComedian.average_rating}</p>
+                <button onClick={() => seeReviewForm(relevantComedian.id)}>{showReviewForm ? "Hide Review Form" : "Leave A Review"}</button>
+                <button onClick={() => navigateToComedianReviews(relevantComedian.id)}>See Reviews</button>
+                <h3>Please Leave a Review</h3>
+                <form className="reviewForm" onSubmit={handleSubmit}>
+                    <label>Comedian</label>
+                    <br />
+                    <input id="comedian" type="text" value={formData.comedian} readOnly></input>
+                    <br />
+                    <label>Your Review</label>
+                    <br />
+                    <textarea id="review_text" type="text" placeholder="Ex: Jerry Seinfeld is unbelievably hilarious..." value={formData.review_text} onChange={handleChange}></textarea>
+                    <br />
+                    <label>Rating out of 10</label>
+                    <br />
+                    <input id="rating" type="number" name="rating" placeholder="9" min={1} max={10} value={formData.rating} onChange={handleChange}></input>
+                    <br />
+                    <button id="submitReviewButton" type="submit">Submit</button>
+                </form>
         </div>
         )
     else

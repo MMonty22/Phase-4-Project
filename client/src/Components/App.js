@@ -50,6 +50,3 @@ function App() {
 }
 
 export default App;
-
-//comedians list of all comedians as links with button to add comedian
-//link takes you to comedian/1 for show page of bio etc with button to add a review
