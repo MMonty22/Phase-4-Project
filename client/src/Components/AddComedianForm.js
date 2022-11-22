@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom"
 function AddComedianForm(setComedians) {
     const navigate = useNavigate()
     const [formData, setFormData] = useState({
-        comedian: "",
+        name: "",
         bio: ""
     })
 
@@ -18,7 +18,7 @@ function AddComedianForm(setComedians) {
     function handleSubmit(event) {
         event.preventDefault()
         const newComedianObj = {
-            comedian: formData.comedian,
+            name: formData.name,
             bio: formData.bio
         }
         fetch(`/comedians`, {
@@ -42,7 +42,7 @@ function AddComedianForm(setComedians) {
             <form className="comedianForm" onSubmit={handleSubmit}>
                 <label>Comedian</label>
                 <br />
-                <input id="comedian" type="text" value={formData.comedian} onChange={handleChange}></input>
+                <input id="name" type="text" value={formData.name} onChange={handleChange}></input>
                 <br />
                 <label>Your Review</label>
                 <br />
