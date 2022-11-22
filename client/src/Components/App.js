@@ -4,6 +4,7 @@ import { UserProvider } from '../Context/UserContext';
 import SignUp from './SignUp';
 import Login from './Login';
 import ComediansContainer from './ComediansContainer'
+import Comedian from './Comedian'
 import ReviewForm from './ReviewForm';
 import ComedianReviews from './ComedianReviews';
 import Home from './Home';
@@ -36,10 +37,11 @@ function App() {
       <UserProvider>
         <NavBar />
         <Routes>
-          <Route exact path="/" element={<Home />}/>
+          <Route exact path="/" element={<Home reviews={reviews} setReviews={setReviews}/>}/>
           <Route exact path="/signup" element={<SignUp username={username} setUsername={setUsername} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} errors={errors} setErrors={setErrors}/>}/>
           <Route exact path="/login" element={<Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} errors={errors} setErrors={setErrors}/>} />
           <Route exact path="/comedians" element={<ComediansContainer comedians={comedians} />}/>
+          <Route path="/comedians/:id" element={<Comedian comedians={comedians}/>} />
           <Route exact path="/reviews/new" element={<ReviewForm comedians={comedians} reviews={reviews} setReviews={setReviews}/>}/>
           <Route path="reviews/:id/edit" element={<ReviewEditForm reviews={reviews} setReviews={setReviews}/>}/>
           <Route path="/comedians/:id/reviews" element={<ComedianReviews comedians={comedians} users={users}/>}/>
@@ -50,3 +52,6 @@ function App() {
 }
 
 export default App;
+
+//comedians list of all comedians as links with button to add comedian
+//link takes you to comedian/1 for show page of bio etc with button to add a review

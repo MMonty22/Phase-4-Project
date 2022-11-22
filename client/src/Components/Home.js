@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react'
 import {useNavigate} from "react-router-dom"
 import { UserContext } from '../Context/UserContext';
 
-function Home() {
+function Home(reviews, setReviews) {
     const navigate = useNavigate()
     const {user, loggedIn, logout} = useContext(UserContext)
     const [myReviews, setMyReviews] = useState(false)
@@ -19,7 +19,23 @@ function Home() {
         <li>Review: {review.review_text}</li>
         <li>Rating: {review.rating}</li>
         <button onClick={() => navigateToReviewEditForm(review.id)}>Edit Review</button>
+        <button onClick={() => handleDelete(review.id)}>Delete Review</button>
     </ul>)
+
+    function handleDelete(reviewID) {
+        fetch(`/reviews`, {
+            method: "DELETE",
+        })
+        .then(res => res.json())
+        .then(deletedReview => removeReview(deletedReview))
+    }
+
+    function removeReview(reviewToRemove) {
+        const updatedUserReviews = user.reviews.filter((review) => review.id !== reviewToRemove.id)
+        console.log('updatedReviews', updatedReviews)
+        const updatedReviews = 
+        setReviews(...reviews, updatedReviews)
+    }
 
     function navigateToReviewEditForm(reviewID) {
         navigate(`/reviews/${reviewID}/edit`)

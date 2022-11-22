@@ -1,8 +1,15 @@
 import React from 'react'
-import Comedian from './Comedian'
+import {useNavigate} from "react-router-dom"
 
 function ComediansContainer({comedians}) {
-    const comedian_info = comedians.map((singleComedian) => <Comedian key={singleComedian.id} singleComedian={singleComedian}/>)
+    const navigate = useNavigate()
+    const comedian_info = comedians.map((singleComedian) => <ul key={singleComedian.id}>
+        <li onClick={() => navigateToComedianPage(singleComedian.id)}>{singleComedian.name}</li>
+    </ul>)
+
+    function navigateToComedianPage(comedianID) {
+        navigate(`/comedians/${comedianID}`)
+    }
 
     return (
         <div>

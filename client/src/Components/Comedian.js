@@ -1,27 +1,29 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useNavigate, useParams} from "react-router-dom"
 
-function Comedian({singleComedian}) {
+function Comedian({comedians}) {
     const navigate = useNavigate()
-    const {user_id} = useParams()
-    //console.log('userID', userID)
-
-    function navigateToReviewForm(comedianID) {
-        navigate(`/reviews/id=${comedianID}/user_id=${user_id}`)
-    }
+    const {id} = useParams()
+    //console.log('id', id) is the id of the comedian
+    const [showReviewForm, setShowReviewForm] = useState(false)
+    const relevantComedian = comedians.find((comedian) => String(comedian.id) === String(id))
+    //console.log('relevantComedian', relevantComedian)
 
     function navigateToComedianReviews(comedianID) {
         navigate(`/comedians/${comedianID}/reviews`)
     }
+    
+    function seeReviewForm() {
+        setShowReviewForm(!showReviewForm)
+    }
 
     return (
         <div className='comedian'>
-            <h3>{singleComedian.name}</h3>
-            <p>Average Rating: {singleComedian.average_rating}</p>
-            <p>Reviews: {singleComedian.review_count}</p>
-            <p>{singleComedian.bio}</p>
-            <button onClick={() => navigateToReviewForm(singleComedian.id)}>Leave a Review</button>
-            <button onClick={() => navigateToComedianReviews(singleComedian.id)}>See Reviews</button>
+            <h3>{relevantComedian.name}</h3>
+            <p>{relevantComedian.bio}</p>
+            <p>Average Rating: {relevantComedian.average_rating}</p>
+            <button onClick={() => seeReviewForm(relevantComedian.id)}>Leave a Review</button>
+            <button onClick={() => navigateToComedianReviews(relevantComedian.id)}>See Reviews</button>
         </div>
     )
 }

@@ -11,9 +11,6 @@ function NavBar() {
             <NavLink to="/comedians">
                 Comedians
             </NavLink>
-            <NavLink to="/reviews/new">
-                Create New Review
-            </NavLink>
         </nav>
     )
 

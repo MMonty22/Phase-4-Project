@@ -6,7 +6,6 @@ function ReviewForm({reviews, setReviews, comedians}) {
     const navigate = useNavigate()
     const {id} = useParams()
     const {user} = useContext(UserContext)
-    //maybe can do some validation on backend to make sure they only input a comedian that already exists in the DB
     
     const [formData, setFormData] = useState({
         //comedian: "",

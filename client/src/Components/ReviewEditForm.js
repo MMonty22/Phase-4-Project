@@ -21,7 +21,7 @@ function ReviewEditForm({reviews, setReviews}) {
             review_text: editFormData.review,
             rating: editFormData.rating,
         }
-        fetch(`/reviews/${id}/`, {
+        fetch(`/reviews/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -36,7 +36,8 @@ function ReviewEditForm({reviews, setReviews}) {
     function updateReview(editedReview) {
         const nonEditedReviews = user.reviews.filter((review) => String(review.id) !== String(editedReview.id))
         setReviews([...nonEditedReviews, editedReview])
-    }
+    }//map if its the same replace it else keep it as is
+    //and update userReviews not just allreviews reviews: ...
 
     function handleChange(event) {
         setEditFormData({
