@@ -5,7 +5,6 @@ import SignUp from './SignUp';
 import Login from './Login';
 import ComediansContainer from './ComediansContainer'
 import Comedian from './Comedian'
-import ReviewForm from './ReviewForm';
 import ComedianReviews from './ComedianReviews';
 import Home from './Home';
 import NavBar from './NavBar';
@@ -41,8 +40,7 @@ function App() {
           <Route exact path="/signup" element={<SignUp username={username} setUsername={setUsername} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} errors={errors} setErrors={setErrors}/>}/>
           <Route exact path="/login" element={<Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} errors={errors} setErrors={setErrors}/>} />
           <Route exact path="/comedians" element={<ComediansContainer comedians={comedians} />}/>
-          <Route path="/comedians/:id" element={<Comedian comedians={comedians}/>} />
-          <Route exact path="/reviews/new" element={<ReviewForm comedians={comedians} reviews={reviews} setReviews={setReviews}/>}/>
+          <Route path="/comedians/:id" element={<Comedian comedians={comedians} reviews={reviews} setReviews={setReviews}/>} />
           <Route path="reviews/:id/edit" element={<ReviewEditForm reviews={reviews} setReviews={setReviews}/>}/>
           <Route path="/comedians/:id/reviews" element={<ComedianReviews comedians={comedians} users={users}/>}/>
         </Routes>
