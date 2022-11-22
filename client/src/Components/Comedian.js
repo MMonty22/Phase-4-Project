@@ -38,10 +38,11 @@ function Comedian({comedians, setReviews, reviews}) {
         })
         .then(res => res.json())
         .then(data => addReview(data))
-        navigate('/comedians')
+        navigate(`/comedians/${id}/reviews`)
     }
 
     function addReview(newReview) {
+
         //setReviews([...reviews, newReview])
     }
 

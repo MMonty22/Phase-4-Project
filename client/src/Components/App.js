@@ -9,6 +9,7 @@ import ComedianReviews from './ComedianReviews';
 import Home from './Home';
 import NavBar from './NavBar';
 import ReviewEditForm from './ReviewEditForm';
+import AddComedianForm from './AddComedianForm';
 
 function App() {
   const [username, setUsername] = useState("")
@@ -43,6 +44,7 @@ function App() {
           <Route path="/comedians/:id" element={<Comedian comedians={comedians} reviews={reviews} setReviews={setReviews}/>} />
           <Route path="reviews/:id/edit" element={<ReviewEditForm reviews={reviews} setReviews={setReviews}/>}/>
           <Route path="/comedians/:id/reviews" element={<ComedianReviews comedians={comedians} users={users}/>}/>
+          <Route exact path="/comedians/new" element={<AddComedianForm setComedians={setComedians} />} />
         </Routes>
       </UserProvider>
     </div>

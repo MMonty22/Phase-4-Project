@@ -7,7 +7,7 @@ function ReviewEditForm({reviews, setReviews}) {
     const {id} = useParams()
     const {user} = useContext(UserContext)
     //console.log('id', id)
-    //console.log('reviews', reviews)
+    //console.log('user', user)
     const relevantReview = reviews.find((review) => String(review.id) === String(id))
     //console.log('relevantReview', relevantReview)
     const [editFormData, setEditFormData] = useState({
@@ -36,10 +36,16 @@ function ReviewEditForm({reviews, setReviews}) {
     }
 
     function updateReview(editedReview) {
-        const nonEditedReviews = user.reviews.filter((review) => String(review.id) !== String(editedReview.id))
-        setReviews([...nonEditedReviews, editedReview])
+        // const editedReviews = user.reviews.map((review) => {
+        //     if (review.id === editedReview.id) {
+        //         return user.reviews = {...editedReview}
+        //     }
+        //     else return user.reviews
+        // })
+        // setReviews(editedReviews)
     }//map if its the same replace it else keep it as is
-    //and update userReviews not just allreviews reviews: ...
+    //and update userReviews not just allreviews
+    //{reviews: ...}
 
     function handleChange(event) {
         setEditFormData({

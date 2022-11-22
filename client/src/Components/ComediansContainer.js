@@ -11,8 +11,13 @@ function ComediansContainer({comedians}) {
         navigate(`/comedians/${comedianID}`)
     }
 
+    function navigateToAddComedianForm() {
+        navigate('/comedians/new')
+    }
+
     return (
         <div>
+            <h3 id="addComedian" onClick={() => navigateToAddComedianForm()}>Add A Comedian</h3>
             <ul>{comedian_info}</ul>
         </div>
     )
