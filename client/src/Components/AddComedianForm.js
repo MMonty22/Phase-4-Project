@@ -1,12 +1,13 @@
 import React, {useState} from 'react'
 import {useNavigate} from "react-router-dom"
 
-function AddComedianForm(setComedians) {
+function AddComedianForm({setComedians, comedians}) {
     const navigate = useNavigate()
     const [formData, setFormData] = useState({
         name: "",
         bio: ""
     })
+    //console.log('comedians', comedians)
 
     function handleChange(event) {
         setFormData({
@@ -33,8 +34,9 @@ function AddComedianForm(setComedians) {
         navigate(`/comedians`)
     }
 
-    function addComedian() {
-
+    function addComedian(newComedian) {
+        const updatedComedians = [...comedians, newComedian]
+        setComedians(updatedComedians)
     }
 
     return(
@@ -44,7 +46,7 @@ function AddComedianForm(setComedians) {
                 <br />
                 <input id="name" type="text" value={formData.name} onChange={handleChange}></input>
                 <br />
-                <label>Your Review</label>
+                <label>Bio</label>
                 <br />
                 <textarea id="bio" type="text" value={formData.bio} onChange={handleChange}></textarea>
                 <br />

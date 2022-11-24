@@ -25,6 +25,7 @@ function Comedian({comedians, setReviews, reviews}) {
     function handleSubmit(event) {
         event.preventDefault()
         const newReviewObj = {
+            comedian_id: id,
             comedian: formData.comedian,
             review_text: formData.review_text,
             rating: formData.rating,
