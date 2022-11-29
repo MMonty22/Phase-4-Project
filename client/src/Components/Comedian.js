@@ -43,8 +43,8 @@ function Comedian({comedians, setReviews, reviews}) {
     }
 
     function addReview(newReview) {
-
-        //setReviews([...reviews, newReview])
+        const updatedReviews = [...reviews, newReview]
+        setReviews(updatedReviews)
     }
 
     function handleChange(event) {

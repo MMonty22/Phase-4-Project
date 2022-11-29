@@ -8,6 +8,7 @@ function Home(reviews, setReviews) {
     const [myReviews, setMyReviews] = useState(false)
     const [myComedians, setMyComedians] = useState(false)
     //console.log('user', user)
+    //console.log('loggedIn', loggedIn)
 
     const userComedians = user?.comedians?.map((comedian) => <ul key={comedian.id}>
         <li>Comedian: {comedian.name}</li>
@@ -15,8 +16,10 @@ function Home(reviews, setReviews) {
         <li>Average Rating: {comedian.average_rating}</li>
     </ul>)
 
+    //const relevantComedian = user?.comedians?.map((comedian) => comedian.id === user.reviews.)
+
     const userReviews = user?.reviews?.map((review) => <ul key={review.id}>
-        <li>Comedian: {user?.comedians?.map((comedian) => comedian.name)}</li>
+        <li>Comedian: {/*this is a problem user?.comedians?.map((comedian) => comedian.name)*/}</li>
         <li>Review: {review.review_text}</li>
         <li>Rating: {review.rating}</li>
         <button onClick={() => navigateToReviewEditForm(review.id)}>Edit Review</button>
@@ -24,18 +27,17 @@ function Home(reviews, setReviews) {
     </ul>)
 
     function handleDelete(reviewID) {
-        fetch(`/reviews`, {
+        fetch(`/reviews/${reviewID}`, {
             method: "DELETE",
         })
         .then(res => res.json())
         .then(deletedReview => removeReview(deletedReview))
-    }
+    }//Unhandled Rejection (SyntaxError): Unexpected end of JSON input
 
     function removeReview(reviewToRemove) {
-        const updatedUserReviews = user.reviews.filter((review) => review.id !== reviewToRemove.id)
+        const updatedReviews = reviews?.filter((review) => review.id !== reviewToRemove.id)
         console.log('updatedReviews', updatedReviews)
-        const updatedReviews = 
-        setReviews(...reviews, updatedReviews)
+        setReviews(updatedReviews)
     }
 
     function navigateToReviewEditForm(reviewID) {

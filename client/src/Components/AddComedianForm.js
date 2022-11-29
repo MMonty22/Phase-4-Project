@@ -7,7 +7,6 @@ function AddComedianForm({setComedians, comedians}) {
         name: "",
         bio: ""
     })
-    //console.log('comedians', comedians)
 
     function handleChange(event) {
         setFormData({

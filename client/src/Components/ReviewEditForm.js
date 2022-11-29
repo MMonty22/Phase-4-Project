@@ -36,13 +36,9 @@ function ReviewEditForm({reviews, setReviews}) {
     }
 
     function updateReview(editedReview) {
-        // const editedReviews = user.reviews.map((review) => {
-        //     if (review.id === editedReview.id) {
-        //         return user.reviews = {...editedReview}
-        //     }
-        //     else return user.reviews
-        // })
-        // setReviews(editedReviews)
+        const editedUserReviews = user.reviews.map((review) => review.id === editedReview.id ? editedReview : review)
+        console.log('editedUserReviews', editedUserReviews)
+        setReviews(editedUserReviews)
     }//map if its the same replace it else keep it as is
     //and update userReviews not just allreviews
     //{reviews: ...}

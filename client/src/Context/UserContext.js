@@ -7,7 +7,7 @@ function UserProvider({children}) {
     const [loggedIn, setLoggedIn] = useState(false)
 
     useEffect(() => {
-        fetch('/user')
+        fetch('/me')
         .then(res => res.json())
         .then(data => {
             setUser(data)
