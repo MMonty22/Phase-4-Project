@@ -1,11 +1,46 @@
 body {
-  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-image: url('https://res.cloudinary.com/spotlightuk/image/fetch/w_1536,c_limit/https://spotlight-cmsmedia.s3-eu-west-1.amazonaws.com/media/1927/shutterstock_646910404.jpg');
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  color: white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+ul {list-style: none}
+
+.logoutButton{
+  position: fixed;
+  right: 0.5rem;
+  top: 1rem;
+}
+
+.nav {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem calc((90vw - 6.25rem) / 2);
+}
+
+a:visited {
+  text-decoration: none; 
+  color: white;  
+}
+
+/* .comedians {
+  margin: 2rem 2rem;
+  justify-content: center;
+  text-align: center;
+  border: white solid 1px;
+  display: inline-grid;
+  width: 10rem;
+  height: 12rem;
+} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

@@ -34,6 +34,7 @@ function AddComedianForm({setComedians, comedians}) {
     }
 
     function addComedian(newComedian) {
+        //dispatch({type: "createComedian", payload: newComedian})
         const updatedComedians = [...comedians, newComedian]
         setComedians(updatedComedians)
     }

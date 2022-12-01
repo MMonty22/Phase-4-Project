@@ -20,18 +20,6 @@ function App() {
   const [users, setUsers] = useState([])
   const [reviews, setReviews] = useState([])
 
-  useEffect(() => {
-    fetch('/comedians')
-    .then(res => res.json())
-    .then(data => setComedians(data)) 
-    fetch('/users')
-    .then(res => res.json())
-    .then(data => setUsers(data))
-    fetch('/reviews')
-    .then(res => res.json())
-    .then(data => setReviews(data))
-  },[])
-
   return (
     <div className="App">
       <UserProvider>
@@ -41,9 +29,9 @@ function App() {
           <Route exact path="/signup" element={<SignUp username={username} setUsername={setUsername} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} errors={errors} setErrors={setErrors}/>}/>
           <Route exact path="/login" element={<Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} errors={errors} setErrors={setErrors}/>} />
           <Route exact path="/comedians" element={<ComediansContainer comedians={comedians} />}/>
-          <Route path="/comedians/:id" element={<Comedian comedians={comedians} reviews={reviews} setReviews={setReviews}/>} />
-          <Route path="reviews/:id/edit" element={<ReviewEditForm reviews={reviews} setReviews={setReviews}/>}/>
-          <Route path="/comedians/:id/reviews" element={<ComedianReviews comedians={comedians} users={users}/>}/>
+          <Route path="/comedians/:id" element={<Comedian setComedians={setComedians} comedians={comedians} reviews={reviews} setReviews={setReviews}/>} />
+          <Route path="reviews/:id/edit" element={<ReviewEditForm users={users} setUsers={setUsers} reviews={reviews} setReviews={setReviews}/>}/>
+          <Route path="/comedians/:id/reviews" element={<ComedianReviews reviews={reviews} comedians={comedians} />}/>
           <Route exact path="/comedians/new" element={<AddComedianForm setComedians={setComedians} comedians={comedians}/>} />
         </Routes>
       </UserProvider>

@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom"
 
 function ComediansContainer({comedians}) {
     const navigate = useNavigate()
-    const comedian_info = comedians.map((singleComedian) => <ul key={singleComedian.id}>
+    const comedian_info = comedians.map((singleComedian) => <ul className='comedians' key={singleComedian.id}>
         <li onClick={() => navigateToComedianPage(singleComedian.id)}>{singleComedian.name}</li>
     </ul>)
 

@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import {useNavigate, useParams} from "react-router-dom"
 
-function Comedian({comedians, setReviews, reviews}) {
+function Comedian({comedians, setReviews, setComedians, reviews}) {
+    //console.log('comedians', comedians)
     const navigate = useNavigate()
     const {id} = useParams()
     //console.log('id', id) is the id of the comedian
@@ -9,7 +10,7 @@ function Comedian({comedians, setReviews, reviews}) {
     const relevantComedian = comedians.find((comedian) => String(comedian.id) === String(id))
     //console.log('relevantComedian', relevantComedian)
     const [formData, setFormData] = useState({
-        comedian: `${relevantComedian.name}`,
+        comedian: relevantComedian.name,
         review_text: "",
         rating: 1
     })
@@ -43,7 +44,12 @@ function Comedian({comedians, setReviews, reviews}) {
     }
 
     function addReview(newReview) {
+        //dispatch({type: "createReview", payload: {newReview, id})
         const updatedReviews = [...reviews, newReview]
+        const filteredComedians = comedians.filter(comedian => comedian.id !== relevantComedian.id)
+        console.log('filteredComedians', filteredComedians)
+        relevantComedian.reviews = [...relevantComedian.reviews, newReview]
+        setComedians([...filteredComedians, relevantComedian]) 
         setReviews(updatedReviews)
     }
 

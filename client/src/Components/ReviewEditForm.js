@@ -2,7 +2,7 @@ import React, {useState, useContext} from "react";
 import { UserContext } from '../Context/UserContext';
 import {useParams, useNavigate} from "react-router-dom"
 
-function ReviewEditForm({reviews, setReviews}) {
+function ReviewEditForm({reviews, setReviews, users, setUsers}) {
     const navigate = useNavigate()
     const {id} = useParams()
     const {user} = useContext(UserContext)
@@ -36,12 +36,14 @@ function ReviewEditForm({reviews, setReviews}) {
     }
 
     function updateReview(editedReview) {
+        //dispatch({type: "updateReview", payload: editedReview})
         const editedUserReviews = user.reviews.map((review) => review.id === editedReview.id ? editedReview : review)
         console.log('editedUserReviews', editedUserReviews)
+        const editedUsers = users.map(singleUser => singleUser.id === user.id ? {...singleUser, reviews: editedUserReviews} : singleUser)
+        console.log('editedUsers', editedUsers)
         setReviews(editedUserReviews)
-    }//map if its the same replace it else keep it as is
-    //and update userReviews not just allreviews
-    //{reviews: ...}
+        setUsers(editedUsers)
+    }
 
     function handleChange(event) {
         setEditFormData({
