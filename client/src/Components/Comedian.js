@@ -1,13 +1,15 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {useNavigate, useParams} from "react-router-dom"
+import { UserContext } from '../Context/UserContext';
 
-function Comedian({comedians, setReviews, setComedians, reviews}) {
+function Comedian() {
+    const {overallState, dispatch} = useContext(UserContext);
     //console.log('comedians', comedians)
     const navigate = useNavigate()
     const {id} = useParams()
     //console.log('id', id) is the id of the comedian
     const [showReviewForm, setShowReviewForm] = useState(false)
-    const relevantComedian = comedians.find((comedian) => String(comedian.id) === String(id))
+    const relevantComedian = overallState.comedians.find((comedian) => String(comedian.id) === String(id))
     //console.log('relevantComedian', relevantComedian)
     const [formData, setFormData] = useState({
         comedian: relevantComedian.name,
@@ -44,13 +46,13 @@ function Comedian({comedians, setReviews, setComedians, reviews}) {
     }
 
     function addReview(newReview) {
-        //dispatch({type: "createReview", payload: {newReview, id})
-        const updatedReviews = [...reviews, newReview]
-        const filteredComedians = comedians.filter(comedian => comedian.id !== relevantComedian.id)
-        console.log('filteredComedians', filteredComedians)
-        relevantComedian.reviews = [...relevantComedian.reviews, newReview]
-        setComedians([...filteredComedians, relevantComedian]) 
-        setReviews(updatedReviews)
+        dispatch({type: "createReview", payload: {newReview, id}})
+        // const updatedReviews = [...reviews, newReview]
+        // const filteredComedians = comedians.filter(comedian => comedian.id !== relevantComedian.id)
+        // console.log('filteredComedians', filteredComedians)
+        // relevantComedian.reviews = [...relevantComedian.reviews, newReview]
+        // setComedians([...filteredComedians, relevantComedian]) 
+        // setReviews(updatedReviews)
     }
 
     function handleChange(event) {

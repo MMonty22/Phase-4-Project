@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {useNavigate} from "react-router-dom"
+import { UserContext } from '../Context/UserContext';
 
-function ComediansContainer({comedians}) {
+function ComediansContainer() {
+    const {overallState} = useContext(UserContext);
     const navigate = useNavigate()
-    const comedian_info = comedians.map((singleComedian) => <ul className='comedians' key={singleComedian.id}>
+    const comedian_info = overallState.comedians.map((singleComedian) => <ul className='comedians' key={singleComedian.id}>
         <li onClick={() => navigateToComedianPage(singleComedian.id)}>{singleComedian.name}</li>
     </ul>)
 

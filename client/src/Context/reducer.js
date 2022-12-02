@@ -9,15 +9,32 @@ export const initialState = {
 
 export function reducer(overallState, action) {
   switch (action.type) {
-    case 'setLoggedIn':
-        return {
-        ...overallState,
-        loggedIn: action.payload
-        }
     case 'setUser':
         return {
         ...overallState,
         user: action.payload
+        }
+    case 'login':
+        return {
+            ...overallState,
+            user: action.payload,
+            loggedIn: true
+        }
+    case 'signup':
+        return {
+            ...overallState,
+            user: action.payload,
+            loggedIn: true
+        }
+    case 'logout':
+        return {
+            ...overallState,
+            loggedIn: false
+        }
+    case 'setLoggedIn':
+        return {
+        ...overallState,
+        loggedIn: action.payload
         }
     case 'fetchReviews':
         return {
@@ -26,16 +43,16 @@ export function reducer(overallState, action) {
         }
     case 'updateReview': //payload is editedReview passed into function from PATCH request
         const editedUserReviews = overallState.user.reviews.map((review) => review.id === action.payload.id ? action.payload : review)
-        //console.log('editedUserReviews', editedUserReviews)
+        console.log('editedUserReviews', editedUserReviews)
         const editedUsers = overallState.users.map(singleUser => singleUser.id === overallState.user.id ? {...singleUser, reviews: editedUserReviews} : singleUser)
-        //console.log('editedUsers', editedUsers)
+        console.log('editedUsers', editedUsers)
       return {
         ...overallState,
         users: editedUsers,
         reviews: editedUserReviews
         }
     case 'createReview': //payload is newReview passed into function from POST request
-        const relevantComedian = overallState.comedians.find((comedian) => String(comedian.id) === String(action.payload.id)) //this id is in url from params
+        const relevantComedian = overallState.comedians.find((comedian) => String(comedian.id) === String(action.payload.id))
         const updatedReviews = [...overallState.reviews, action.payload.newReview]
         const filteredComedians = overallState.comedians.filter(comedian => comedian.id !== relevantComedian.id)
         //console.log('filteredComedians', filteredComedians)
@@ -68,7 +85,6 @@ export function reducer(overallState, action) {
         users: action.payload
         }
     default:
-      throw new Error()
   }
 }
 

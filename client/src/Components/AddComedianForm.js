@@ -1,7 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {useNavigate} from "react-router-dom"
+import { UserContext } from '../Context/UserContext';
 
-function AddComedianForm({setComedians, comedians}) {
+function AddComedianForm() {
+    const {dispatch} = useContext(UserContext);
     const navigate = useNavigate()
     const [formData, setFormData] = useState({
         name: "",
@@ -34,9 +36,7 @@ function AddComedianForm({setComedians, comedians}) {
     }
 
     function addComedian(newComedian) {
-        //dispatch({type: "createComedian", payload: newComedian})
-        const updatedComedians = [...comedians, newComedian]
-        setComedians(updatedComedians)
+        dispatch({type: "createComedian", payload: newComedian})
     }
 
     return(

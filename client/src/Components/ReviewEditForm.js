@@ -2,13 +2,14 @@ import React, {useState, useContext} from "react";
 import { UserContext } from '../Context/UserContext';
 import {useParams, useNavigate} from "react-router-dom"
 
-function ReviewEditForm({reviews, setReviews, users, setUsers}) {
+function ReviewEditForm() {
     const navigate = useNavigate()
     const {id} = useParams()
-    const {user} = useContext(UserContext)
+    const {overallState, dispatch} = useContext(UserContext)
     //console.log('id', id)
-    //console.log('user', user)
-    const relevantReview = reviews.find((review) => String(review.id) === String(id))
+    //console.log('user', overallState.user)
+    //console.log('reviews', overallState.reviews)
+    const relevantReview = overallState.reviews.find((review) => String(review.id) === String(id))
     //console.log('relevantReview', relevantReview)
     const [editFormData, setEditFormData] = useState({
         comedian: relevantReview.comedian.name,
@@ -36,13 +37,7 @@ function ReviewEditForm({reviews, setReviews, users, setUsers}) {
     }
 
     function updateReview(editedReview) {
-        //dispatch({type: "updateReview", payload: editedReview})
-        const editedUserReviews = user.reviews.map((review) => review.id === editedReview.id ? editedReview : review)
-        console.log('editedUserReviews', editedUserReviews)
-        const editedUsers = users.map(singleUser => singleUser.id === user.id ? {...singleUser, reviews: editedUserReviews} : singleUser)
-        console.log('editedUsers', editedUsers)
-        setReviews(editedUserReviews)
-        setUsers(editedUsers)
+        dispatch({type: "updateReview", payload: editedReview})
     }
 
     function handleChange(event) {

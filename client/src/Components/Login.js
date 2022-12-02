@@ -24,9 +24,10 @@ function Login({username, setUsername, password, setPassword, errors, setErrors}
               login(user)
             }
             else {
-              //i imagine i need some dispatch or something from the reducer here
               setUsername("")
               setPassword("")
+              const errors = user.errors.map(error => <li>{error}</li>)
+              setErrors(errors)
             }
           });
           navigate('/')
@@ -37,10 +38,10 @@ function Login({username, setUsername, password, setPassword, errors, setErrors}
         <h2>Please Login</h2>
         <form onSubmit={handleSubmit}>
           <label>Username:</label>
-          <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} /*what do I do with these for the reducer??*//>
+          <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
           <br/>
           <label>Password:</label>
-          <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} /*what do I do with these for the reducer??*//>
+          <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
           <br/>
           <button type="submit">Submit</button>
         </form>

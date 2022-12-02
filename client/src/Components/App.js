@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {Routes, Route} from 'react-router-dom'
 import { UserProvider } from '../Context/UserContext';
 import SignUp from './SignUp';
@@ -16,23 +16,20 @@ function App() {
   const [password, setPassword] = useState("")
   const [passwordConfirmation, setPasswordConfirmation] = useState("")
   const [errors, setErrors] = useState([])
-  const [comedians, setComedians] = useState([])
-  const [users, setUsers] = useState([])
-  const [reviews, setReviews] = useState([])
 
   return (
     <div className="App">
       <UserProvider>
         <NavBar />
         <Routes>
-          <Route exact path="/" element={<Home reviews={reviews} setReviews={setReviews}/>}/>
+          <Route exact path="/" element={<Home />}/>
           <Route exact path="/signup" element={<SignUp username={username} setUsername={setUsername} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} errors={errors} setErrors={setErrors}/>}/>
           <Route exact path="/login" element={<Login username={username} setUsername={setUsername} password={password} setPassword={setPassword} passwordConfirmation={passwordConfirmation} setPasswordConfirmation={setPasswordConfirmation} errors={errors} setErrors={setErrors}/>} />
-          <Route exact path="/comedians" element={<ComediansContainer comedians={comedians} />}/>
-          <Route path="/comedians/:id" element={<Comedian setComedians={setComedians} comedians={comedians} reviews={reviews} setReviews={setReviews}/>} />
-          <Route path="reviews/:id/edit" element={<ReviewEditForm users={users} setUsers={setUsers} reviews={reviews} setReviews={setReviews}/>}/>
-          <Route path="/comedians/:id/reviews" element={<ComedianReviews reviews={reviews} comedians={comedians} />}/>
-          <Route exact path="/comedians/new" element={<AddComedianForm setComedians={setComedians} comedians={comedians}/>} />
+          <Route exact path="/comedians" element={<ComediansContainer />}/>
+          <Route path="/comedians/:id" element={<Comedian />} />
+          <Route path="reviews/:id/edit" element={<ReviewEditForm />}/>
+          <Route path="/comedians/:id/reviews" element={<ComedianReviews />}/>
+          <Route exact path="/comedians/new" element={<AddComedianForm />} />
         </Routes>
       </UserProvider>
     </div>

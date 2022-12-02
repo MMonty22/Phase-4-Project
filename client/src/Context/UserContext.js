@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, {useEffect, useReducer } from "react";
 import { reducer, initialState} from "./reducer";
 
 const UserContext = React.createContext()
 
 function UserProvider({ children }) {
-    const [user, setUser] = useState({})
-    const [loggedIn, setLoggedIn] = useState(false)
     const [overallState, dispatch] = useReducer(reducer, initialState)
 
     useEffect(() => {
@@ -13,7 +11,7 @@ function UserProvider({ children }) {
             .then(res => res.json())
             .then(data => {
                 dispatch({type: "setUser", payload: data }) 
-                data.errors ? dispatch({type: "setLoggedIn", payload: false}) : dispatch({type: "logout", payload: true})
+                data.errors ? dispatch({type: "setLoggedIn", payload: false}) : dispatch({type: "setLoggedIn", payload: true})
             })
     }, [])
 
@@ -30,25 +28,19 @@ function UserProvider({ children }) {
       },[])
 
     function login(user) {
-        //dispatch({type: "login", payload: user})
-        setUser(user)
-        setLoggedIn(true)
+        dispatch({type: "login", payload: user})
     }
 
     function logout() {
-        //dispatch({type: "logout", payload: user})
-        setUser({})
-        setLoggedIn(false)
+        dispatch({type: "logout"})
     }
 
     function signup(user) {
-        //dispatch({type: "signup", payload: user})
-        setUser(user)
-        setLoggedIn(true)
+        dispatch({type: "signup", payload: user})
     }
 
     return (
-        <UserContext.Provider value={{ user, login, logout, signup, loggedIn, overallState, dispatch }}>
+        <UserContext.Provider value={{ login, logout, signup, overallState, dispatch }}>
             {children}
         </UserContext.Provider>
     )

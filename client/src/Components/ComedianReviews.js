@@ -1,10 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import {useParams} from "react-router-dom"
+import { UserContext } from '../Context/UserContext';
 
-function ComedianReviews({reviews, comedians,}) {
+function ComedianReviews() {
+    const {overallState} = useContext(UserContext);
     const {id} = useParams()
-    const relevantComedian = comedians.find((comedian) => String(comedian.id) === String(id))
-    const relevantReviews = reviews.filter(review => review.comedian_id === relevantComedian.id)
+    const relevantComedian = overallState.comedians.find((comedian) => String(comedian.id) === String(id))
+    const relevantReviews = overallState.reviews.filter(review => review.comedian_id === relevantComedian.id)
 
     return (
         <div>

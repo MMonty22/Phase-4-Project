@@ -4,19 +4,19 @@ import { UserContext } from '../Context/UserContext';
 
 function Home() {
     const navigate = useNavigate()
-    const {user, loggedIn, logout, overallState, dispatch} = useContext(UserContext)
+    const {logout, overallState, dispatch} = useContext(UserContext)
     const [showReviews, setshowReviews] = useState(false)
     const [showComedians, setshowComedians] = useState(false)
-    //console.log('user', user)
+    //console.log('user', overallState.user)
 
-    const userComedians = user?.comedians?.map((comedian) => <ul key={comedian.id}>
+    const userComedians = overallState.user?.comedians?.map((comedian) => <ul key={comedian.id}>
         <li>Comedian: {comedian.name}</li>
         <li>Bio: {comedian.bio}</li>
         <li>Average Rating: {comedian.average_rating}</li>
     </ul>)
 
-    const userReviews = user?.reviews?.map((review) => {
-        const relevantComedian = user.comedians.find(comedian => String(comedian.id) === String(review.comedian_id))
+    const userReviews = overallState.user?.reviews?.map((review) => {
+        const relevantComedian = overallState.user.comedians.find(comedian => String(comedian.id) === String(review.comedian_id))
         return (<ul key={review.id}>
             <li>Comedian: {relevantComedian.name}</li>
             <li>Review: {review.review_text}</li>
@@ -35,9 +35,6 @@ function Home() {
 
     function removeReview(reviewID) {
         dispatch({type: "deleteReview", payload: reviewID})
-        // const updatedReviews = reviews.filter((review) => review.id !== reviewID)
-        // console.log('updatedReviews', updatedReviews)
-        // setReviews(updatedReviews)
     }
 
     function navigateToReviewEditForm(reviewID) {
@@ -71,10 +68,10 @@ function Home() {
         setshowComedians(!showComedians)
     }
 
-    if (loggedIn && showReviews)
+    if (overallState.loggedIn && showReviews)
         return (
             <div>
-                <h2>Welcome, {user.username}</h2>
+                <h2>Welcome, {overallState.user.username}</h2>
                 <button className='logoutButton' onClick={handleUserLogout}>Logout</button>
                 <br/>
                 <button onClick={handleShowReviews}>{showReviews ? "Hide My Reviews" : "Show My Reviews"}</button>
@@ -83,10 +80,10 @@ function Home() {
                 {userReviews}
             </div>
     )
-    else if (loggedIn && showComedians)
+    else if (overallState.loggedIn && showComedians)
         return(
             <div>
-                <h2>Welcome, {user.username}</h2>
+                <h2>Welcome, {overallState.user.username}</h2>
                 <button className='logoutButton' onClick={handleUserLogout}>Logout</button>
                 <br/>
                 <button onClick={handleShowReviews}>Show My Reviews</button>
@@ -95,10 +92,10 @@ function Home() {
                 {userComedians}
             </div>
         )
-    else if (loggedIn)
+    else if (overallState.loggedIn)
         return(
             <div>
-                <h2>Welcome, {user.username}</h2>
+                <h2>Welcome, {overallState.user.username}</h2>
                 <button className='logoutButton' onClick={handleUserLogout}>Logout</button>
                 <br/>
                 <button onClick={handleShowReviews}>Show My Reviews</button>
