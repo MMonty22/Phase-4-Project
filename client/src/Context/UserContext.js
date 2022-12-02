@@ -4,7 +4,7 @@ import { reducer, initialState} from "./reducer";
 const UserContext = React.createContext()
 
 function UserProvider({ children }) {
-    const [overallState, dispatch] = useReducer(reducer, initialState)
+    const [state, dispatch] = useReducer(reducer, initialState)
 
     useEffect(() => {
         fetch('/me')
@@ -40,7 +40,7 @@ function UserProvider({ children }) {
     }
 
     return (
-        <UserContext.Provider value={{ login, logout, signup, overallState, dispatch }}>
+        <UserContext.Provider value={{ login, logout, signup, state, dispatch }}>
             {children}
         </UserContext.Provider>
     )

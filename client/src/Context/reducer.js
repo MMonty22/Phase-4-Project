@@ -7,81 +7,96 @@ export const initialState = {
     reviews: []
 }
 
-export function reducer(overallState, action) {
+export function reducer(state, action) {
   switch (action.type) {
     case 'setUser':
         return {
-        ...overallState,
+        ...state,
         user: action.payload
         }
     case 'login':
         return {
-            ...overallState,
+            ...state,
             user: action.payload,
             loggedIn: true
         }
     case 'signup':
         return {
-            ...overallState,
+            ...state,
             user: action.payload,
             loggedIn: true
         }
     case 'logout':
         return {
-            ...overallState,
+            ...state,
             loggedIn: false
         }
     case 'setLoggedIn':
         return {
-        ...overallState,
+        ...state,
         loggedIn: action.payload
         }
     case 'fetchReviews':
         return {
-        ...overallState,
+        ...state,
         reviews: action.payload
         }
     case 'updateReview': //payload is editedReview passed into function from PATCH request
-        const editedUserReviews = overallState.user.reviews.map((review) => review.id === action.payload.id ? action.payload : review)
-        console.log('editedUserReviews', editedUserReviews)
-        const editedUsers = overallState.users.map(singleUser => singleUser.id === overallState.user.id ? {...singleUser, reviews: editedUserReviews} : singleUser)
-        console.log('editedUsers', editedUsers)
+        const editedUserReviews = state.user.reviews.map((review) => review.id === action.payload.id ? action.payload : review)
+        //console.log('editedUserReviews', editedUserReviews)
+        const editedReviews = state.reviews.map((review) => review.id === action.payload.id ? action.payload : review)
+        const editedUsers = state.users.map(singleUser => singleUser.id === state.user.id ? {...singleUser, reviews: editedUserReviews} : singleUser)
+        //console.log('editedUsers', editedUsers)
       return {
-        ...overallState,
+        ...state,
+        user: {
+            ...state.user,
+            reviews: editedUserReviews
+        },
         users: editedUsers,
-        reviews: editedUserReviews
+        reviews: editedReviews
         }
     case 'createReview': //payload is newReview passed into function from POST request
-        const relevantComedian = overallState.comedians.find((comedian) => String(comedian.id) === String(action.payload.id))
-        const updatedReviews = [...overallState.reviews, action.payload.newReview]
-        const filteredComedians = overallState.comedians.filter(comedian => comedian.id !== relevantComedian.id)
-        //console.log('filteredComedians', filteredComedians)
-        relevantComedian.reviews = [...relevantComedian.reviews, action.payload]
+        const updatedReviews = [...state.reviews, action.payload.newReview]
+        //console.log('updatedReviews', updatedReviews)
+        const updatedUserReviews = [...state.user.reviews, action.payload.newReview]
+        //console.log('updatedUserReviews', updatedUserReviews)
+        //console.log('comedians', state.comedians)
       return {
-        ...overallState,
-        comedians: [...filteredComedians, relevantComedian],
+        ...state,
+        user: {
+            ...state.user,
+            reviews: updatedUserReviews
+        },
         reviews: updatedReviews
         }
-    case 'deleteReview':
-      const reviewsMinusDeletedOne = overallState.reviews.filter((review) => review.id !== action.payload)
+    case 'deleteReview': //payload is reviewID passed into function from DELETE request
+      const reviewsMinusDeletedOne = state.reviews.filter((review) => review.id !== action.payload)
+      //console.log('reviewsMinuteDeletedOne', reviewsMinusDeletedOne)
+      const userReviewsMinusDeletedOne = state.user.reviews.filter((review) => review.id !== action.payload)
+      //console.log('userReviewsMinusDeletedOne', userReviewsMinusDeletedOne)
       return {
-        ...overallState,
+        ...state,
+        user: {
+            ...state.user,
+            reviews: userReviewsMinusDeletedOne
+        },
         reviews: reviewsMinusDeletedOne
-        }      
-    case 'fetchComedians': //do I want fetchs here, saw them in an example
+        }
+    case 'fetchComedians':
         return {
-        ...overallState,
+        ...state,
         comedians: action.payload
         }
     case 'createComedian': //payload is newComedian passed into function from POST request
-        const updatedComedians = [...overallState.comedians, action.payload]
+        const updatedComedians = [...state.comedians, action.payload]
         return {
-        ...overallState,
+        ...state,
         comedians: updatedComedians,
         }
     case 'fetchUsers':
         return {
-        ...overallState,
+        ...state,
         users: action.payload
         }
     default:

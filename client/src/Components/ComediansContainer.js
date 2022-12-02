@@ -3,9 +3,9 @@ import {useNavigate} from "react-router-dom"
 import { UserContext } from '../Context/UserContext';
 
 function ComediansContainer() {
-    const {overallState} = useContext(UserContext);
+    const {state} = useContext(UserContext);
     const navigate = useNavigate()
-    const comedian_info = overallState.comedians.map((singleComedian) => <ul className='comedians' key={singleComedian.id}>
+    const comedian_info = state.comedians.map((singleComedian) => <ul className='comedians' key={singleComedian.id}>
         <li onClick={() => navigateToComedianPage(singleComedian.id)}>{singleComedian.name}</li>
     </ul>)
 

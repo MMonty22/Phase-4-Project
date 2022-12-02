@@ -1,18 +1,24 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import {useNavigate, useParams} from "react-router-dom"
 import { UserContext } from '../Context/UserContext';
 
 function Comedian() {
-    const {overallState, dispatch} = useContext(UserContext);
-    //console.log('comedians', comedians)
+    const {state, dispatch} = useContext(UserContext);
     const navigate = useNavigate()
     const {id} = useParams()
     //console.log('id', id) is the id of the comedian
     const [showReviewForm, setShowReviewForm] = useState(false)
-    const relevantComedian = overallState.comedians.find((comedian) => String(comedian.id) === String(id))
-    //console.log('relevantComedian', relevantComedian)
+    const relevantComedian = state?.comedians?.find((comedian) => String(comedian.id) === String(id))
+    console.log('relevantComedian', relevantComedian)
+
+    // useEffect(() => {
+    //     if (state.comedians) {
+    //         state?.comedians?.find((comedian) => String(comedian.id) === String(id))
+    //     }
+    //     else return state.comedians
+    // },[relevantComedian, state.comedians])
+
     const [formData, setFormData] = useState({
-        comedian: relevantComedian.name,
         review_text: "",
         rating: 1
     })
@@ -29,7 +35,7 @@ function Comedian() {
         event.preventDefault()
         const newReviewObj = {
             comedian_id: id,
-            comedian: formData.comedian,
+            comedian: relevantComedian.name,
             review_text: formData.review_text,
             rating: formData.rating,
         }
@@ -47,12 +53,6 @@ function Comedian() {
 
     function addReview(newReview) {
         dispatch({type: "createReview", payload: {newReview, id}})
-        // const updatedReviews = [...reviews, newReview]
-        // const filteredComedians = comedians.filter(comedian => comedian.id !== relevantComedian.id)
-        // console.log('filteredComedians', filteredComedians)
-        // relevantComedian.reviews = [...relevantComedian.reviews, newReview]
-        // setComedians([...filteredComedians, relevantComedian]) 
-        // setReviews(updatedReviews)
     }
 
     function handleChange(event) {
@@ -72,10 +72,6 @@ function Comedian() {
                 <button onClick={() => navigateToComedianReviews(relevantComedian.id)}>See Reviews</button>
                 <h3>Please Leave a Review</h3>
                 <form className="reviewForm" onSubmit={handleSubmit}>
-                    <label>Comedian</label>
-                    <br />
-                    <input id="comedian" type="text" value={formData.comedian} readOnly></input>
-                    <br />
                     <label>Your Review</label>
                     <br />
                     <textarea id="review_text" type="text" placeholder="Ex: Jerry Seinfeld is unbelievably hilarious..." value={formData.review_text} onChange={handleChange}></textarea>
@@ -91,9 +87,9 @@ function Comedian() {
     else
         return (
             <div className='comedian'>
-                <h3>{relevantComedian.name}</h3>
-                <p>{relevantComedian.bio}</p>
-                <p>Average Rating: {relevantComedian.average_rating}</p>
+                <h3>{relevantComedian ? `${relevantComedian.name}` : 'loading...'}</h3>
+                <p>{relevantComedian ? `${relevantComedian.bio}`: ''}</p>
+                <p>{relevantComedian ? `Average Rating: ${relevantComedian.average_rating}`: ''}</p>
                 <button onClick={() => seeReviewForm(relevantComedian.id)}>Leave a Review</button>
                 <button onClick={() => navigateToComedianReviews(relevantComedian.id)}>See Reviews</button>
             </div>
