@@ -1,13 +1,12 @@
-import React, {useState, useContext} from 'react'
-import {useNavigate} from "react-router-dom"
+import React, { useState, useContext } from 'react'
+import { useNavigate } from "react-router-dom"
 import { UserContext } from '../Context/UserContext';
 
 function Home() {
     const navigate = useNavigate()
-    const {logout, state, dispatch} = useContext(UserContext)
+    const { logout, state, dispatch } = useContext(UserContext)
     const [showReviews, setshowReviews] = useState(false)
     const [showComedians, setshowComedians] = useState(false)
-    console.log('user', state.user)
 
     const userComedians = state.user?.comedians?.map((comedian) => <ul key={comedian.id}>
         <li>Comedian: {comedian.name}</li>
@@ -22,19 +21,20 @@ function Home() {
             <li>Review: {review.review_text}</li>
             <li>Rating: {review.rating}</li>
             <button onClick={() => navigateToReviewEditForm(review.id)}>Edit Review</button>
-            <button onClick={() => handleDelete(review.id)}>Delete Review</button>
+            <button onClick={() => handleDelete(review.id, relevantComedian.id)}>Delete Review</button>
         </ul>
-    )})
+        )
+    })
 
-    function handleDelete(reviewID) {
+    function handleDelete(reviewID, relevantComedianID) {
         fetch(`/reviews/${reviewID}`, {
             method: "DELETE",
         })
-        .then(res => removeReview(reviewID))
+            .then(res => removeReview(reviewID, relevantComedianID))
     }
 
-    function removeReview(reviewID) {
-        dispatch({type: "deleteReview", payload: reviewID})
+    function removeReview(reviewID, relevantComedianID) {
+        dispatch({ type: "deleteReview", payload: {reviewID, relevantComedianID}})
     }
 
     function navigateToReviewEditForm(reviewID) {
@@ -52,12 +52,12 @@ function Home() {
     function handleUserLogout() {
         fetch('/logout', {
             method: 'DELETE',
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
         })
-        .then(() => {
-            logout()
-            navigate('/')
-        })
+            .then(() => {
+                logout()
+                navigate('/')
+            })
     }
 
     function handleShowReviews() {
@@ -68,49 +68,52 @@ function Home() {
         setshowComedians(!showComedians)
     }
 
+    if (state.initialLoad) {
+        return <h3 id='loading'>"Loading..."</h3>
+    } 
     if (state.loggedIn && showReviews)
         return (
-            <div>
+            <div className='home'>
                 <h2>Welcome, {state.user.username}</h2>
                 <button className='logoutButton' onClick={handleUserLogout}>Logout</button>
-                <br/>
+                <br />
                 <button onClick={handleShowReviews}>{showReviews ? "Hide My Reviews" : "Show My Reviews"}</button>
-                <br/>
+                <br />
                 <button onClick={handleShowComedians}>{showComedians ? "Hide Comedians I Reviewed" : "Show Comedians I Reviewed"}</button>
                 {userReviews}
             </div>
-    )
+        )
     else if (state.loggedIn && showComedians)
-        return(
-            <div>
+        return (
+            <div className='home'>
                 <h2>Welcome, {state.user.username}</h2>
                 <button className='logoutButton' onClick={handleUserLogout}>Logout</button>
-                <br/>
+                <br />
                 <button onClick={handleShowReviews}>Show My Reviews</button>
-                <br/>
+                <br />
                 <button onClick={handleShowComedians}>{showComedians ? "Hide Comedians I Reviewed" : "Show Comedians I Reviewed"}</button>
                 {userComedians}
             </div>
         )
     else if (state.loggedIn)
-        return(
-            <div>
+        return (
+            <div className='home'>
                 <h2>Welcome, {state.user.username}</h2>
                 <button className='logoutButton' onClick={handleUserLogout}>Logout</button>
-                <br/>
+                <br />
                 <button onClick={handleShowReviews}>Show My Reviews</button>
-                <br/>
+                <br />
                 <button onClick={handleShowComedians}>{showComedians ? "Hide Comedians I Reviewed" : "Show Comedians I Reviewed"}</button>
             </div>
         )
     else
         return (
-            <div>
-                <h2>Please Create and Account or Login</h2>
-                <button onClick={navigateToSignUpPage}>Create Account</button>
-                <button onClick={navigateToLoginPage}>Login</button>
+            <div className='home'>
+                <h2>Please Create an Account or Login</h2>
+                <button className='homeButtons' onClick={navigateToSignUpPage}>Create Account</button>
+                <button className='homeButtons' onClick={navigateToLoginPage}>Login</button>
             </div>
-        ) 
+        )
 }
 
 export default Home

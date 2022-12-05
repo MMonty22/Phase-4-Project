@@ -5,9 +5,10 @@ import { UserContext } from '../Context/UserContext';
 function ComediansContainer() {
     const {state} = useContext(UserContext);
     const navigate = useNavigate()
-    const comedian_info = state.comedians.map((singleComedian) => <ul className='comedians' key={singleComedian.id}>
+    const comedian_info = Array.isArray(state.comedians) ? state.comedians.map((singleComedian) =>
+        <ul className='comedians' key={singleComedian.id}>
         <li onClick={() => navigateToComedianPage(singleComedian.id)}>{singleComedian.name}</li>
-    </ul>)
+    </ul>) : <h3 className='unauthorized'>{Object.values(state.comedians)}</h3>
 
     function navigateToComedianPage(comedianID) {
         navigate(`/comedians/${comedianID}`)
@@ -17,11 +18,19 @@ function ComediansContainer() {
         navigate('/comedians/new')
     }
 
+    if (state.initialLoad) {
+        return <h3 id='loading'>"Loading..."</h3>
+    } 
+    else if (state.loggedIn)
     return (
         <div>
             <h3 id="addComedian" onClick={() => navigateToAddComedianForm()}>Add A Comedian</h3>
             <ul>{comedian_info}</ul>
         </div>
+    )
+    else
+    return (
+        <h3 className='unauthorized'>Not Authorized, Please Login or Create an Account</h3>
     )
 }
 

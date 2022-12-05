@@ -14,6 +14,42 @@ body {
 
 ul {list-style: none}
 
+textarea {
+  width: 20rem;
+  height: 10rem
+}
+
+.signUpForm {
+  text-align: center;
+  display: center;
+}
+
+.home {
+  text-align: center;
+  display: center;
+}
+
+.login {
+  text-align: center;
+  display: center;
+}
+
+.homeButtons {
+  margin-left: 1rem;
+}
+
+#addComedian {
+  text-align: center;
+}
+
+#loading {
+  text-align: center;
+}
+
+.unauthorized{
+  text-align: center;
+}
+
 .logoutButton{
   position: fixed;
   right: 0.5rem;
@@ -46,5 +82,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-/*add "list-style: none" CSS class to the unordered list to remove bullets for reviews*/

@@ -11,7 +11,8 @@ function UserProvider({ children }) {
             .then(res => res.json())
             .then(data => {
                 dispatch({type: "setUser", payload: data }) 
-                data.errors ? dispatch({type: "setLoggedIn", payload: false}) : dispatch({type: "setLoggedIn", payload: true})
+                data.error ? dispatch({type: "setLoggedIn", payload: false}) : dispatch({type: "setLoggedIn", payload: true})
+                dispatch ({type: 'setLoad'})
             })
     }, [])
 
@@ -28,6 +29,7 @@ function UserProvider({ children }) {
       },[])
 
     function login(user) {
+        console.log('user', user)
         dispatch({type: "login", payload: user})
     }
 

@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react'
+import React, {useState, useContext} from 'react'
 import {useNavigate, useParams} from "react-router-dom"
 import { UserContext } from '../Context/UserContext';
 
@@ -6,17 +6,8 @@ function Comedian() {
     const {state, dispatch} = useContext(UserContext);
     const navigate = useNavigate()
     const {id} = useParams()
-    //console.log('id', id) is the id of the comedian
     const [showReviewForm, setShowReviewForm] = useState(false)
     const relevantComedian = state?.comedians?.find((comedian) => String(comedian.id) === String(id))
-    console.log('relevantComedian', relevantComedian)
-
-    // useEffect(() => {
-    //     if (state.comedians) {
-    //         state?.comedians?.find((comedian) => String(comedian.id) === String(id))
-    //     }
-    //     else return state.comedians
-    // },[relevantComedian, state.comedians])
 
     const [formData, setFormData] = useState({
         review_text: "",
@@ -67,7 +58,6 @@ function Comedian() {
             <div>
                 <h3>{relevantComedian.name}</h3>
                 <p>{relevantComedian.bio}</p>
-                <p>Average Rating: {relevantComedian.average_rating}</p>
                 <button onClick={() => seeReviewForm(relevantComedian.id)}>{showReviewForm ? "Hide Review Form" : "Leave A Review"}</button>
                 <button onClick={() => navigateToComedianReviews(relevantComedian.id)}>See Reviews</button>
                 <h3>Please Leave a Review</h3>
@@ -87,9 +77,8 @@ function Comedian() {
     else
         return (
             <div className='comedian'>
-                <h3>{relevantComedian ? `${relevantComedian.name}` : 'loading...'}</h3>
+                <h3>{relevantComedian ? `${relevantComedian.name}` : 'Loading...'}</h3>
                 <p>{relevantComedian ? `${relevantComedian.bio}`: ''}</p>
-                <p>{relevantComedian ? `Average Rating: ${relevantComedian.average_rating}`: ''}</p>
                 <button onClick={() => seeReviewForm(relevantComedian.id)}>Leave a Review</button>
                 <button onClick={() => navigateToComedianReviews(relevantComedian.id)}>See Reviews</button>
             </div>

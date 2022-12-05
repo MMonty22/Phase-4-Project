@@ -23,33 +23,39 @@ function SignUp({username, setUsername, password, setPassword, passwordConfirmat
         .then(user => {
           if (!user.errors) {
             signup(user)
+            navigate('/')
           }
           else {
             setUsername("")
             setPassword("")
             setPasswordConfirmation("")
-            const errors = user.errors.map(error => <li>{error}</li>)
+            const errors = user.errors.map(e => <li>{e}</li>)
             setErrors(errors)
           }
         });
-        navigate('/')
     }
   
     return (
-      <div>
+      <div className='signUpForm'>
         <h2>Create An Account</h2>
         <form onSubmit={handleSubmit}>
           <label>Username:</label>
+          <br/>
           <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)}/> 
           <br/>
           <label>Password:</label>
+          <br/>
           <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
           <br/>
           <label>Confirm Password:</label>
+          <br/>
           <input type="password" id="password_confirmation" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)}/>
           <br/>
           <button type="submit">Submit</button>
         </form>
+        <ul>
+          {errors}
+        </ul>
       </div>
     );
 }

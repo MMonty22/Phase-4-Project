@@ -1,4 +1,5 @@
 export const initialState = {
+    initialLoad: true,
     user: {},
     loggedIn: false,
     errors: [],
@@ -13,6 +14,11 @@ export function reducer(state, action) {
         return {
         ...state,
         user: action.payload
+        }
+    case 'setLoad':
+        return {
+        ...state,
+        initialLoad: false    
         }
     case 'login':
         return {
@@ -56,30 +62,37 @@ export function reducer(state, action) {
         users: editedUsers,
         reviews: editedReviews
         }
-    case 'createReview': //payload is newReview passed into function from POST request
+    case 'createReview': //payload is newReview and id passed into function from POST request
         const updatedReviews = [...state.reviews, action.payload.newReview]
         //console.log('updatedReviews', updatedReviews)
         const updatedUserReviews = [...state.user.reviews, action.payload.newReview]
         //console.log('updatedUserReviews', updatedUserReviews)
-        //console.log('comedians', state.comedians)
+        const newUserComedian = state.comedians.find(comedian => String(comedian.id) === String(action.payload.id))
+        //console.log('newUserComedian', newUserComedian)
+        const newUserComedians = [...state.user.comedians, newUserComedian]
+        //console.log('newUserComedians', newUserComedians)
       return {
         ...state,
         user: {
             ...state.user,
-            reviews: updatedUserReviews
+            reviews: updatedUserReviews,
+            comedians: newUserComedians
         },
         reviews: updatedReviews
         }
-    case 'deleteReview': //payload is reviewID passed into function from DELETE request
-      const reviewsMinusDeletedOne = state.reviews.filter((review) => review.id !== action.payload)
+    case 'deleteReview': //payload is reviewID and relevantComedianID passed into function from DELETE request
+      const reviewsMinusDeletedOne = state.reviews.filter((review) => review.id !== action.payload.reviewID)
       //console.log('reviewsMinuteDeletedOne', reviewsMinusDeletedOne)
-      const userReviewsMinusDeletedOne = state.user.reviews.filter((review) => review.id !== action.payload)
+      const userReviewsMinusDeletedOne = state.user.reviews.filter((review) => review.id !== action.payload.reviewID)
       //console.log('userReviewsMinusDeletedOne', userReviewsMinusDeletedOne)
+      const userComediansMinusDeletedOne = state.user.comedians.filter((comedian) => comedian.id !== action.payload.relevantComedianID)
+      //console.log('userComediansMinusDeletedOne', userComediansMinusDeletedOne)
       return {
         ...state,
         user: {
             ...state.user,
-            reviews: userReviewsMinusDeletedOne
+            reviews: userReviewsMinusDeletedOne,
+            comedians: userComediansMinusDeletedOne
         },
         reviews: reviewsMinusDeletedOne
         }
@@ -90,8 +103,13 @@ export function reducer(state, action) {
         }
     case 'createComedian': //payload is newComedian passed into function from POST request
         const updatedComedians = [...state.comedians, action.payload]
+        const updatedUserComedians = [...state.user.comedians, action.payload]
         return {
         ...state,
+        user: {
+            ...state.user,
+            comedians: updatedUserComedians
+        },
         comedians: updatedComedians,
         }
     case 'fetchUsers':
