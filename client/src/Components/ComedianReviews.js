@@ -10,7 +10,7 @@ function ComedianReviews() {
 
     return (
         <div>
-            <h1>{relevantComedian ? `${relevantComedian.name}s Reviews`: 'Loading...'}</h1>
+            <h1>{relevantComedian ? `Reviews for ${relevantComedian.name}`: 'Loading...'}</h1>
             {relevantReviews.map(review => (
             <ul key={review.id}>
                 <li>User: {review.user.username}</li>

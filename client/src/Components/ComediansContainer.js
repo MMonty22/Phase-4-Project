@@ -6,8 +6,8 @@ function ComediansContainer() {
     const {state} = useContext(UserContext);
     const navigate = useNavigate()
     const comedian_info = state.comedians.map((singleComedian) =>
-        <ul className='comedians' key={singleComedian.id}>
-        <li onClick={() => navigateToComedianPage(singleComedian.id)}>{singleComedian.name}</li>
+        <ul key={singleComedian.id}>
+        <li className='comedianLis' onClick={() => navigateToComedianPage(singleComedian.id)}>{singleComedian.name}</li>
     </ul>)
 
     function navigateToComedianPage(comedianID) {

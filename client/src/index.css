@@ -42,6 +42,10 @@ textarea {
   text-align: center;
 }
 
+#addComedian:hover {
+  color: orange;
+}
+
 #loading {
   text-align: center;
 }
@@ -68,15 +72,13 @@ a:visited {
   color: white;  
 }
 
-/* .comedians {
-  margin: 2rem 2rem;
-  justify-content: center;
-  text-align: center;
-  border: white solid 1px;
-  display: inline-grid;
-  width: 10rem;
-  height: 12rem;
-} */
+.comedianLis:hover {
+  color: orange;
+}
+
+button:hover{
+  background-color: orange;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
