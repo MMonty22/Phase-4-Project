@@ -29,7 +29,6 @@ function UserProvider({ children }) {
       },[])
 
     function login(user) {
-        console.log('user', user)
         dispatch({type: "login", payload: user})
     }
 

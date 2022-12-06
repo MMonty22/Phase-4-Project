@@ -5,10 +5,10 @@ import { UserContext } from '../Context/UserContext';
 function ComediansContainer() {
     const {state} = useContext(UserContext);
     const navigate = useNavigate()
-    const comedian_info = Array.isArray(state.comedians) ? state.comedians.map((singleComedian) =>
+    const comedian_info = state.comedians.map((singleComedian) =>
         <ul className='comedians' key={singleComedian.id}>
         <li onClick={() => navigateToComedianPage(singleComedian.id)}>{singleComedian.name}</li>
-    </ul>) : <h3 className='unauthorized'>{Object.values(state.comedians)}</h3>
+    </ul>)
 
     function navigateToComedianPage(comedianID) {
         navigate(`/comedians/${comedianID}`)

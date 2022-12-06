@@ -11,7 +11,6 @@ function Home() {
     const userComedians = state.user?.comedians?.map((comedian) => <ul key={comedian.id}>
         <li>Comedian: {comedian.name}</li>
         <li>Bio: {comedian.bio}</li>
-        <li>Average Rating: {comedian.average_rating}</li>
     </ul>)
 
     const userReviews = state.user?.reviews?.map((review) => {

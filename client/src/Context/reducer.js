@@ -35,6 +35,7 @@ export function reducer(state, action) {
     case 'logout':
         return {
             ...state,
+            user: {},
             loggedIn: false
         }
     case 'setLoggedIn':
@@ -103,12 +104,10 @@ export function reducer(state, action) {
         }
     case 'createComedian': //payload is newComedian passed into function from POST request
         const updatedComedians = [...state.comedians, action.payload]
-        const updatedUserComedians = [...state.user.comedians, action.payload]
         return {
         ...state,
         user: {
             ...state.user,
-            comedians: updatedUserComedians
         },
         comedians: updatedComedians,
         }
