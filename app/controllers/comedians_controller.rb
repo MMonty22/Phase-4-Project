@@ -8,7 +8,11 @@ class ComediansController < ApplicationController
 
     def create
         comedian = Comedian.create(comedian_params)
-        render json: comedian, status: :created
+        if comedian.valid?
+            render json: comedian, status: :created
+        else
+            render json: {errors: comedian.errors.full_messages}, status: :unprocessable_entity
+        end
     end
 
     private

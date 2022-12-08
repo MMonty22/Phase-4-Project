@@ -81,6 +81,16 @@ export function reducer(state, action) {
         },
         reviews: updatedReviews
         }
+    case 'setReviewErrors': //payload is errors
+        return {
+        ...state,
+        errors: action.payload
+    }
+    case 'setComedianErrors': //payload is errors
+        return {
+            ...state,
+            errors: action.payload
+        }
     case 'deleteReview': //payload is reviewID and relevantComedianID passed into function from DELETE request
       const reviewsMinusDeletedOne = state.reviews.filter((review) => review.id !== action.payload.reviewID)
       //console.log('reviewsMinuteDeletedOne', reviewsMinusDeletedOne)

@@ -38,8 +38,16 @@ function Comedian() {
             body: JSON.stringify(newReviewObj)
         })
         .then(res => res.json())
-        .then(data => addReview(data))
-        navigate(`/comedians/${id}/reviews`)
+        .then(data => {
+            if (!data.errors) {
+                addReview(data)
+                navigate(`/comedians/${id}/reviews`)
+            }
+            else {
+                setFormData({review_text: "", rating: 1})
+                const errors = data.errors.map(e => <li>{e}</li>)
+                dispatch({type: "setReviewErrors", payload: errors})
+            }})
     }
 
     function addReview(newReview) {
@@ -52,8 +60,29 @@ function Comedian() {
             [event.target.id]: event.target.value,
         })
     }
-
-    if (showReviewForm)
+    if (showReviewForm && state.errors.length > 0)
+        return (
+            <div>
+                <h3>{relevantComedian.name}</h3>
+                <p>{relevantComedian.bio}</p>
+                <button onClick={() => seeReviewForm(relevantComedian.id)}>{showReviewForm ? "Hide Review Form" : "Leave A Review"}</button>
+                <button onClick={() => navigateToComedianReviews(relevantComedian.id)}>See Reviews</button>
+                <h3>Please Leave a Review</h3>
+                <form className="reviewForm" onSubmit={handleSubmit}>
+                    <label>Your Review</label>
+                    <br />
+                    <textarea id="review_text" type="text" placeholder="Ex: Jerry Seinfeld is unbelievably hilarious..." value={formData.review_text} onChange={handleChange}></textarea>
+                    <br />
+                    <label>Rating out of 10</label>
+                    <br />
+                    <input id="rating" type="number" name="rating" placeholder="9" min={1} max={10} value={formData.rating} onChange={handleChange}></input>
+                    <br />
+                    <button id="submitReviewButton" type="submit">Submit</button>
+                </form>
+                {state.errors}
+        </div>
+        )
+    else if (showReviewForm)
         return (
             <div>
                 <h3>{relevantComedian.name}</h3>
