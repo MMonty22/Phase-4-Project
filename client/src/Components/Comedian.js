@@ -6,6 +6,7 @@ function Comedian() {
     const {state, dispatch} = useContext(UserContext);
     const navigate = useNavigate()
     const {id} = useParams()
+    const [errorsState, setErrorsState] = useState([])
     const [showReviewForm, setShowReviewForm] = useState(false)
     const relevantComedian = state?.comedians?.find((comedian) => String(comedian.id) === String(id))
 
@@ -46,7 +47,7 @@ function Comedian() {
             else {
                 setFormData({review_text: "", rating: 1})
                 const errors = data.errors.map(e => <li>{e}</li>)
-                dispatch({type: "setReviewErrors", payload: errors})
+                setErrorsState(errors)
             }})
     }
 
@@ -60,7 +61,7 @@ function Comedian() {
             [event.target.id]: event.target.value,
         })
     }
-    if (showReviewForm && state.errors.length > 0)
+    if (showReviewForm && errorsState.length > 0)
         return (
             <div>
                 <h3>{relevantComedian.name}</h3>
@@ -79,7 +80,7 @@ function Comedian() {
                     <br />
                     <button id="submitReviewButton" type="submit">Submit</button>
                 </form>
-                {state.errors}
+                {errorsState}
         </div>
         )
     else if (showReviewForm)

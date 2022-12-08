@@ -3,8 +3,9 @@ import {useNavigate} from "react-router-dom"
 import { UserContext } from '../Context/UserContext';
 
 function AddComedianForm() {
-    const {state, dispatch} = useContext(UserContext);
+    const {dispatch} = useContext(UserContext);
     const navigate = useNavigate()
+    const [errorsState, setErrorsState] = useState([])
     const [formData, setFormData] = useState({
         name: "",
         bio: ""
@@ -39,7 +40,7 @@ function AddComedianForm() {
             else {
                 setFormData({name: "", bio: ""})
                 const errors = data.errors.map(e => <li>{e}</li>)
-                dispatch({type: "setComedianErrors", payload: errors})
+                setErrorsState(errors)
             }
         })
     }
@@ -48,7 +49,7 @@ function AddComedianForm() {
         dispatch({type: "createComedian", payload: newComedian})
     }
 
-    if (state.errors.length >0)
+    if (errorsState.length > 0)
     return(
         <div>
             <form className="comedianForm" onSubmit={handleSubmit}>
@@ -61,7 +62,7 @@ function AddComedianForm() {
                 <textarea id="bio" type="text" value={formData.bio} onChange={handleChange}></textarea>
                 <br />
                 <button id="submitComedianButton" type="submit">Submit</button>
-                {state.errors}
+                {errorsState}
             </form>
         </div>
     )

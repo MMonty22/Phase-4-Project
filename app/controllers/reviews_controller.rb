@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
     skip_before_action :authorize, only: :index
+    rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
     def index
         reviews = Review.all
@@ -17,12 +18,8 @@ class ReviewsController < ApplicationController
 
     def update
         review = Review.find_by(id: params[:id])
-        if review
-            review.update(review_params)
-            render json: review
-        else
-            render json: {error: "Review not found"}, status: :not_found
-        end
+        review.update!(review_params)
+        render json: review
     end
 
     def destroy
@@ -41,4 +38,7 @@ class ReviewsController < ApplicationController
         params.permit(:comedian_id, :review_text, :rating)
     end
 
+    def render_unprocessable_entity_response(invalid)
+        render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
+    end
 end
