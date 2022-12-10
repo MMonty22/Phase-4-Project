@@ -21,9 +21,9 @@ This will run the backend server on http://localhost:3000/.
 - For the frontend:
 
 ```
-/phase-3-project$ cd client
-/phase-3-project/client$ npm install
-/phase-3-project/client$ npm start
+/phase-4-project$ cd client
+/phase-4-project/client$ npm install
+/phase-4-project/client$ npm start
 ```
 
 This will run the frontend server on http://localhost:4000/.
