@@ -9,9 +9,9 @@ function ReviewEditForm() {
     const [errorsState, setErrorsState] = useState([])
     const relevantReview = state.reviews.find((review) => String(review.id) === String(id))
     const [editFormData, setEditFormData] = useState({
-        comedian: relevantReview.comedian.name,
-        review_text: relevantReview.review_text,
-        rating: relevantReview.rating
+        comedian: relevantReview?.comedian.name,
+        review_text: relevantReview?.review_text,
+        rating: relevantReview?.rating
     })
 
     function handleSubmit(event) {
