@@ -42,6 +42,7 @@ textarea {
 
 #addComedian {
   text-align: center;
+  text-decoration: underline;
 }
 
 #addComedian:hover {
@@ -76,6 +77,10 @@ a:visited {
 
 .comedianLis:hover {
   color: orange;
+}
+
+.comedianLis {
+  text-decoration: underline;
 }
 
 button:hover{
